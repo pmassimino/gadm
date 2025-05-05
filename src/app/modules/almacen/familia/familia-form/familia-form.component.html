@@ -1,0 +1,60 @@
+  <h3>Familia</h3>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group row">
+        <div class="alert alert-warning alert-dismissible fade show" *ngFor="let error of errors" role="alert">
+          {{error.mensaje}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      
+      <!-- Código -->
+      <div class="form-group row">
+        <div class="col-sm-12 col-md-2">         
+          <label for="Id">Código</label>
+          <input type="text" class="form-control" id="Id" formControlName="Id" name="Id" [readonly]="mode === 'edit'">
+        </div>
+      </div>
+
+      <!-- Nombre -->
+      <div class="form-group row">
+        <div class="col-sm-12 col-md-5">
+          <label for="Nombre">Nombre</label>
+          <input type="text" class="form-control" id="Nombre" formControlName="Nombre" required>
+        </div>
+      </div>
+
+      <!-- Cuenta Ingreso -->
+      <div class="form-group row">
+        <div class="col-sm-12 col-md-1">
+          <label>Cuenta Ingreso</label>
+          <input type="text" class="form-control" id="CtaIngresoDefault" formControlName="CtaIngresoDefault">
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <label class="form-label"></label>
+          <app-entity-select [data]="cuentaMayor" [id]="form.get('CtaIngresoDefault')?.value" (onChange)="onChangeCtaIngreso($event)">
+          </app-entity-select>
+        </div>
+      </div>
+
+      <!-- Cuenta Egreso -->
+      <div class="form-group row">
+        <div class="col-sm-12 col-md-1">
+          <label>Cuenta Egreso</label>
+          <input type="text" class="form-control" id="CtaEgresoDefault" formControlName="CtaEgresoDefault">
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <label class="form-label"></label>
+          <app-entity-select [data]="cuentaMayor" [id]="form.get('CtaEgresoDefault')?.value" (onChange)="onChangeCtaEgreso($event)">
+          </app-entity-select>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="mt-2">
+        <button type="submit" [disabled]="!isValid()" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-secondary ms-1" (click)="onClose()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+

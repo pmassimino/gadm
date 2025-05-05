@@ -1,0 +1,4 @@
+.no-interaction {
+    pointer-events: none;
+    background-color: #f5f5f5; /* Opcional: hacer que se vea deshabilitado */
+  }

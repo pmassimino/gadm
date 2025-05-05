@@ -1,0 +1,22 @@
+
+  
+  #page-content-wrapper {
+    flex: 1; /* Ocupa todo el espacio disponible entre el header y el footer */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container-fluid {
+    flex: 1; /* Permite que el contenido crezca y empuje el footer hacia abajo */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  main {
+    flex: 1; /* Asegura que el contenido principal ocupe el espacio necesario */
+  }
+  
+  app-footer {
+    margin-top: auto; /* Mueve el footer hacia la parte inferior cuando sea necesario */
+  }
+  

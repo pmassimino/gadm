@@ -1,0 +1,19 @@
+ 
+  .form-control:invalid {
+    border-color: #e74c3c;
+  }
+  
+  .form-hint {
+    display: block;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .form-control:invalid:focus {
+    border-color: #4a90e2;
+  }
+  
+  .form-control:invalid:not(:focus) {
+    border-color: #e74c3c;
+  }

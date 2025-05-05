@@ -1,0 +1,29 @@
+<div class="d-flex" id="wrapper" [ngClass]="{'toggled': toggled}" >
+  <app-sidebar ></app-sidebar>
+  <div id="page-content-wrapper">
+  <app-navbar (ToggleClick)="onToggle()"></app-navbar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 p-0">   
+      <ng-content select="[toolbar]"></ng-content>
+     </div>
+    </div>
+    <div class="row">    
+      <main role="main" class="col-12">
+        <div class="tabs">
+          <button *ngFor="let tab of tabs; let i = index" (click)="seleccionarTab(i)">
+            {{ tab.titulo }}
+            <span *ngIf="i > 0" (click)="cerrarTab(i)">x</span>
+          </button>
+        </div>
+        <ng-container *ngIf="tabActivaIndex === 0">
+          <ng-content></ng-content> <!-- Contenido estático (grilla) -->
+        </ng-container>
+        <ng-container #contenedor></ng-container> <!-- Contenido dinámico -->
+      </main>   
+    </div>
+    <app-footer></app-footer>
+  </div>
+  </div>
+  </div>
+  

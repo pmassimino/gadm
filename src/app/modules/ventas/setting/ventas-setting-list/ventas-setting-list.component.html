@@ -1,0 +1,12 @@
+<app-layout>
+    <h3>Setting</h3>
+    <div class="example-headers-align" multi>
+      <div *ngFor="let route of routes">
+        <a mat-list-item [href]="route.path" [class]="route.class">
+          <i [class]="route.icon"></i>
+          {{ route.title }}
+        </a>
+      </div>
+    </div>
+  </app-layout>
+  

@@ -1,0 +1,22 @@
+/* Aplica estilos para reducir el padding y tamaño de las celdas */
+.table-compact .mat-header-cell,
+.table-compact .mat-cell,
+.table-compact .mat-footer-cell {
+  padding: 4px 8px; /* Reduce el padding a tu gusto */
+  font-size: 12px;  /* Ajusta el tamaño de la fuente */
+}
+
+/* Ajusta la altura de las filas */
+.mat-row {
+  height: 32px; /* Puedes ajustar este valor según tus necesidades */
+}
+
+.mat-header-row {
+  height: 32px;
+}
+
+/* Si tienes una clase específica para celdas pequeñas, puedes reducir el padding aún más */
+.mat-cell-sm {
+  padding: 2px 6px; /* Padding más pequeño */
+  font-size: 11px;   /* Tamaño de fuente más pequeño */
+}

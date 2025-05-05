@@ -1,0 +1,36 @@
+<app-layout>
+  <div *ngIf="!isEdit">
+    <div toolbar>
+      <app-toolbar (addNew)="addNew()" (exportToExcel)="exportToExcel()"
+        (findByName)="findByName($event)"></app-toolbar>
+    </div>
+    <table class="table table-hover table-responsive-sm">
+      <thead>
+        <tr>
+          <th class="th-sm">Codigo</th>
+          <th class="th-sm">Nombre </th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{item.Id}}</td>
+          <td>{{item.Nombre}}</td>
+          <td>
+            <a (click)="edit(item.Id)">
+              <i class="material-icons">mode_edit</i>
+            </a>
+          </td>
+          <td> <a (click)="delete(item)">
+              <mat-icon class="align-middle">delete</mat-icon>
+            </a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="isEdit">
+    <a (click)="closeForm()" class="me-2" style="cursor: pointer;"><span class="material-icons">backspace</span></a>
+    <app-empresa-form [id]="selectedId" (close)="closeForm()" (saved)="onItemSaved($event)" (mode)="mode"></app-empresa-form>
+  </div>
+</app-layout>

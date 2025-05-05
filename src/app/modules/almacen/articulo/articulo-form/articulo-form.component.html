@@ -1,0 +1,95 @@
+<h3>Create Articulo</h3>
+<div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-xs-1 col-lg-2">
+      <label for="name">Codigo</label>
+      <input type="text" class="form-control"  formControlName = "Id"  [readonly]="mode=='edit'">
+      <div *ngIf="this.form.get('Id').invalid && (this.form.get('Id').dirty || this.form.get('Id').touched)" class="alert alert-danger">
+        <div *ngIf="this.form.get('Id').errors.required">Codigo Requerido.</div>
+        <div *ngIf="this.form.get('Id').errors?.serverError">{{this.form.get('Id').errors.serverError}}</div>               
+    </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-6 col-lg-6">
+           <label for="name">Nombre</label>
+           <input type="text" class="form-control"  formControlName = "Nombre" required >
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+      <label for="name">Familia</label>
+    <select class="form-control" formControlName = "IdFamilia" name="IdFamilia" >
+      <option *ngFor="let item of familia" [ngValue]="item.Id" >{{item.Nombre}} </option>
+    </select>   
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+      <label for="name">Marca</label>
+    <select class="form-control" formControlName = "IdMarca" name="IdMarca" >
+      <option *ngFor="let item of marca" [ngValue]="item.Id" >{{item.Nombre}} </option>
+    </select>   
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+      <label for="name">Unidad Medida</label>
+      <select class="form-control" formControlName = "IdUnidad" name="IdUnidad" >
+        <option *ngFor="let item of unidadMedida" [ngValue]="item.Id">{{item.Nombre}} </option>
+      </select>   
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <mat-slide-toggle formControlName="EsServicio" name="EsServicio">Es Servicio (No genera stock)</mat-slide-toggle>
+      </div>
+    </div>    
+    <div class="form-group row">
+      <div class="col-md-2">
+      <label for="name">Costo Venta</label>
+      <input type="number" class="form-control"  formControlName = "CostoVenta"  name="CostoVenta"  mask="0*.000">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-2">
+      <label for="name">Impuesto Venta</label>
+      <input type="number" class="form-control" formControlName = "ImpuestoVenta" name="ImpuestoVenta" >
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+      <label for="name">Cond. Iva</label>
+    <select class="form-control" formControlName = "CondIva" name="CondIva"  (change)="condIvaChange($event.target.value)">
+      <option *ngFor="let item of condIva" [ngValue]="item.Id">{{item.Nombre}} </option>
+    </select> 
+    <input type="hidden" class="form-control" id="AlicuotaIva" formControlName = "AlicuotaIva"  name="AlicuotaIva">  
+    </div>
+    </div>
+    <div class="form-group row">
+    <div class="col-md-2">
+      <label for="name">Margen Venta</label>
+      <input type="number" class="form-control"  formControlName = "MargenVenta"  name="MargenVenta" >
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-2">
+      <label for="name">Precio Venta</label>
+      <input type="number" class="form-control" formControlName = "PrecioVenta" name="PrecioVenta">
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-2">
+      <label for="name">Precio Venta Final</label>
+      <input type="number" class="form-control"  formControlName = "PrecioVentaFinal" name="PrecioVentaFinal"  step="0.01">
+    </div>
+    </div>
+    <!-- Botones -->
+      <div class="mt-2">
+        <button type="submit" [disabled]="!isValid()" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-secondary ms-1" (click)="onClose()">Cancelar</button>
+      </div>
+  </form> 
+</div>
+

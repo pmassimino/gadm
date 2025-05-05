@@ -1,0 +1,59 @@
+<div class="login-container">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-3">Iniciar Sesión</h3>
+      
+      <!-- Mensaje de error -->
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show py-2" role="alert">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <span>{{error}}</span>
+          <button type="button" class="btn-close ms-auto" aria-label="Close" (click)="error = ''"></button>
+        </div>
+      </div>
+      
+      <form (ngSubmit)="submit()" #loginForm="ngForm">
+        <div class="mb-2">
+          <label for="username" class="form-label small mb-1">Usuario</label>
+          <input type="text" 
+                 id="username" 
+                 name="username" 
+                 class="form-control form-control-sm" 
+                 [(ngModel)]="username" 
+                 required
+                 #userName="ngModel">
+          <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger small">
+            <small *ngIf="userName.errors?.['required']">Usuario requerido</small>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="password" class="form-label small mb-1">Contraseña</label>
+          <input type="password" 
+                 id="password" 
+                 name="password" 
+                 class="form-control form-control-sm" 
+                 [(ngModel)]="password" 
+                 required                 
+                 #userPassword="ngModel">
+          <div *ngIf="userPassword.invalid && (userPassword.dirty || userPassword.touched)" class="text-danger small">
+            <small *ngIf="userPassword.errors?.['required']">Contraseña requerida</small>
+            <small *ngIf="userPassword.errors?.['minlength']">Mínimo 6 caracteres</small>
+          </div>
+        </div>
+        
+        <div class="d-grid gap-2 mt-3">
+          <button class="btn btn-primary btn-sm" 
+                  type="submit" 
+                  [disabled]="loginForm.invalid">
+            Ingresar
+          </button>
+        </div>
+        
+        <div class="text-center mt-2">
+          <a href="#" class="small text-decoration-none">¿Olvidaste tu contraseña?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

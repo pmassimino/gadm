@@ -1,0 +1,66 @@
+
+<h2 mat-dialog-title>Autorizar Factura Electronica</h2>
+<form [formGroup]="form" *ngIf="form">
+    <div class="form-group row">
+       <div class="col-xs-3 col-lg-3">
+        <label>Tipo</label>
+        <select class="form-control" formControlName = "Tipo" name="Tipo" disabled="true" >
+          <option *ngFor="let item of tipoFactura" [ngValue]="item.Id"  >{{item.Nombre}} </option>
+        </select>          
+       </div>     
+       <div class="col-xs-2 col-lg-2">
+            <label>Letra</label>
+            <label>{{entity.Letra}}</label>
+       </div>
+       <div class="col-xs-1 col-lg-2">
+            <label>Numero</label>
+            <label>{{entity.Pe.toString().padStart(4 ,"0")}}-{{entity.Numero.toString().padStart(8 ,"0")  }}</label>
+       </div>       
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-4 col-lg-4">
+           <label for="fecha">Fecha</label>
+           <label>{{entity.Fecha | date:'dd-MM-yyyy'}}</label>
+      </div>
+      <div class="col-xs-4 col-lg-4">
+        <label for="fechaVenc">Fecha Venc</label>
+        <label>{{entity.FechaVencimiento | date:'dd-MM-yyyy'}}</label>
+    </div>
+    </div>        
+    <div class="form-group row">
+        <div class="col-xs-5 col-lg-5">
+            <label for="idCuenta">Cuenta : </label>
+            <label for="idCuenta">{{entity.Sujeto.Nombre}}</label>              
+        </div>  
+    </div>
+    <div class="form-group row">
+        <div class="col-xs-2 col-lg-2">
+            <label>Total Neto : </label>
+            <label>{{entity.TotalNeto}}</label>              
+        </div>
+        <div class="col-xs-2 col-lg-2">
+            <label>Total IVA : </label>
+            <label>{{entity.TotalIva}}</label>              
+        </div>    
+        <div class="col-xs-2 col-lg-2">
+            <label>Total : </label>
+            <label>{{entity.Total}}</label>              
+        </div>          
+    </div>
+    <div class="form-group row">        
+        <div class="col-xs-12 col-lg-12" *ngFor="let error of errors" class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{error.value}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <mat-dialog-actions>
+            <button class="mat-raised-button"(click)="onSubmit()">Autorizar</button>
+            <button class="mat-raised-button"(click)="Recuperar()">Recuperar</button>
+            <button class="mat-raised-button"(click)="goBack()">Cerrar</button>
+        </mat-dialog-actions>
+    </div>    
+</form>
