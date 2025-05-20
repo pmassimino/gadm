@@ -1,0 +1,58 @@
+.mat-table {
+  width: 100%; /* Asegura que la tabla ocupe el ancho disponible */
+  /* table-layout: fixed; */ /* Descomenta esto si quieres que el navegador respete estrictamente los anchos definidos, incluso si el contenido se desborda */
+}
+.mat-column-Id {
+  width: 5%;
+}
+
+.mat-column-Nombre {
+  width: 70%; /* Porcentaje del ancho total */
+  flex: none;
+}
+
+.mat-column-PrecioVentaFinal {
+  width: 10%;
+}
+
+/* Columnas de acciones (edit/delete) */
+.mat-column-Edit,
+.mat-column-Delete {
+  width: 7.5%;
+}
+
+/* Ocultar columna ID en dispositivos móviles */
+@media (max-width: 900px) {
+  .mat-table {
+    font-size: 5px;
+  }
+  .mat-column-Id {
+    display: none;
+  }
+  
+  /* Ajustar los anchos de las demás columnas para compensar */
+  .mat-column-Nombre {
+    width: 70%; /* Aumentamos el ancho para compensar */
+  }
+  
+  .mat-column-PrecioVentaFinal {
+    width: 12%;
+  }
+  
+  .mat-column-Edit,
+  .mat-column-Delete {
+    width: 9%;
+  }
+}
+
+/* Para pantallas muy pequeñas (ej. smartphones pequeños) */
+@media (max-width: 480px) {
+  .mat-column-PrecioVentaFinal {
+    width: 15%;
+  }
+  
+  .mat-column-Edit,
+  .mat-column-Delete {
+    width: 10%;
+  }
+}

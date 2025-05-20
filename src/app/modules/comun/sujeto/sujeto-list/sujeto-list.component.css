@@ -1,0 +1,28 @@
+/* Estilos corregidos */
+.table {
+  width: 100%;
+}
+
+/* Asegúrate de que tanto header como cell tengan el mismo ancho */
+.table-codigo {
+  width: 10%;
+  min-width: 10%;
+  flex: 0 0 10%;
+}
+
+
+.table-nombre {
+  width: 50%;
+  min-width: 50%;
+  flex: 0 0 50%;
+}
+
+.table-edit,
+.table-delete {
+  width: 3%;  /* Reducir el porcentaje de ancho */
+  min-width: 40px; /* Ancho mínimo para que quepan los íconos */
+  flex: 0 0 10%;
+}
+
+
+

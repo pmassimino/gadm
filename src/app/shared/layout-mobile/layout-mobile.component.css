@@ -1,0 +1,82 @@
+
+  
+    .mobile-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .app-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .icon-menu {
+    position: fixed;
+    top: 60px; 
+    left: 0;
+    width: 100%;
+    background: white;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    z-index: 99;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+  
+    &.visible {
+      transform: translateY(0);
+    }
+  }
+  
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+  
+    mat-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .icon-label {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  }
+  
+  .content-area {
+    flex: 1;
+    margin-top: 60px; 
+    margin-bottom: 60px; 
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  
+  .app-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+    background: white;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 100;
+  }

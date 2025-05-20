@@ -21,6 +21,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouteReuseStrategy } from '@angular/router';
 import { CacheRouteReuseStrategy } from './core/services/cache-route-reuse.strategy';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -42,7 +43,8 @@ export function initializeApp(appConfig: ConfigService) {
         MatSelectModule,
         MatInputModule,
         MatDialogModule,
-        MatSlideToggleModule], 
+        MatSlideToggleModule,
+        MatTooltipModule],       
         providers: [AuthService,
         AuthGuard,
         ExcelService,

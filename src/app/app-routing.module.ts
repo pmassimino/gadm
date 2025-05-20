@@ -14,6 +14,7 @@ const routes: Routes = [{path: 'login', component: LoginComponent},
 { path: 'ventas', loadChildren: () => import('./modules/ventas/ventas.module').then(m => m.VentasModule) },
 { path: 'tesoreria', loadChildren: () => import('./modules/tesoreria/tesoreria.module').then(m => m.TesoreriaModule) },
 { path: 'mail', loadChildren: () => import('./modules/mail/mail.module').then(m => m.MailModule) },
+{ path: 'mobile', loadChildren: () => import('./modules/mobile/mobile.module').then(m => m.MobileModule) },
 ];
 
 @NgModule({

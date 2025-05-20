@@ -69,6 +69,41 @@ export class FormAjusteStock {
     Cantidad: number;
 }
 
+export class MovStock {
+    Id: number;
+    Tipo: number;
+    Fecha: string;
+    Concepto: string;
+    Numero: string;
+    IdArticulo: string;
+    IdDeposito: string;
+    IdLote: number;
+    IdSerie: number;
+    Cantidad: number;
+    IdTransaccion: string;
+    Articulo: Articulo;
+    Deposito: Deposito;
+}
+
+export class MovStockView {
+    Id: number;
+    Tipo: number;
+    Fecha: string;
+    Concepto: string;
+    Numero: string;
+    IdArticulo: string;
+    NombreArticulo: string;
+    IdDeposito: string;
+    NombreDeposito: string;
+    IdLote: number;
+    IdSerie: number;
+    Cantidad: number;
+    IdTransaccion: string;
+    Ingreso: number;
+    Egreso: number;
+    Saldo: number;
+}
+
 
 
 

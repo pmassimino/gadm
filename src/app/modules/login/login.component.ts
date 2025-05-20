@@ -30,10 +30,19 @@ export class LoginComponent {
   }
   login():void
   {
-    //Cargar empresas y seleccionar preseterminada
-    //this.empresaService.Current();
-    //this.empresaService.currentValue().subscribe(res=>localStorage.setItem('EmpresaSelected', JSON.stringify(res)));
-    //localStorage.setItem('empresas', JSON.stringify(this.empresaService.Current));
-    this.router.navigate(['']);
+    if (this.isMobileOrTablet()) {
+      this.router.navigate(['/mobile']); // Redirige a /mobile en móvil/tablet
+    } else {
+      this.router.navigate(['']); // Redirige a la ruta por defecto en desktop
+    }
+  }
+   private isMobileOrTablet(): boolean {
+    // Detección por User Agent
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Detección por tamaño de pantalla (opcional)
+    const isSmallScreen = window.innerWidth < 768;
+    
+    return isMobile || isSmallScreen;
   }
 }

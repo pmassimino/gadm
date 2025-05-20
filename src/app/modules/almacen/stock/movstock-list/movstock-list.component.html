@@ -1,0 +1,46 @@
+<div [hidden]="isEdit">
+  <h4>Movimientos stock</h4>  
+  <div toolbar>
+    <app-toolbar  (exportToExcel)="exportToExcel()" exportToExcelVisible="true" (findByName)="applyFilter($event)" >      
+    </app-toolbar>          
+  </div>
+
+  <div class="">
+    <mat-table class="table" [dataSource]="dataSource" matSort>
+      <!-- Fecha Column -->
+      <ng-container matColumnDef="Fecha">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="movStock-table-fecha"> Fecha </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="movStock-table-fecha">  {{row.Fecha | date:'dd-MM-yyyy'}}  </mat-cell>
+      </ng-container>
+      <!-- ID Column -->
+      <ng-container matColumnDef="Numero">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="movStock-table-numero">Numero</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="movStock-table-numero"> {{row.Numero}} </mat-cell>
+      </ng-container>      
+      <!-- Deposito Column -->
+      <ng-container matColumnDef="Concepto">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Concepto </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="movStock-table-concepto"> {{row.Concepto}}</mat-cell>
+      </ng-container>
+      <!-- Ingreso Column -->
+      <ng-container matColumnDef="Ingreso">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="movStock-table-ingreso"> Ingreso </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="movStock-table-ingreso"> {{row.Ingreso}}</mat-cell>
+      </ng-container>
+      <!-- Egreso Column -->
+      <ng-container matColumnDef="Egreso" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="movStock-table-egreso"> Egreso </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="movStock-table-egreso"> {{row.Egreso}}</mat-cell>
+      </ng-container>
+      <!-- Saldo Column -->
+      <ng-container matColumnDef="Saldo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="movStock-table-saldo"> Saldo </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="movStock-table-saldo"> {{row.Saldo}}</mat-cell>
+      </ng-container>      
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[15, 25, 50, 100]"></mat-paginator>
+  </div>
+</div>

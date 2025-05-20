@@ -6,16 +6,16 @@ import { EntitySelectDialogComponent } from '../entity-select-dialog/entity-sele
 import { EntityMultiSelectDialogComponent } from '../entity-multi-select-dialog/entity-multi-select-dialog.component';
 
 @Component({
-  selector: 'app-entity-select',    
+  selector: 'app-entity-select',
   templateUrl: './entity-select.component.html',
   standalone: true,
-  imports:[FormsModule],
+  imports: [FormsModule],
   styleUrl: './entity-select.component.css'
 })
 export class EntitySelectComponent implements OnChanges {
-  
-  constructor( private dialog: MatDialog) {
-    
+
+  constructor(private dialog: MatDialog) {
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     // Si hay cambios en id o en data, verificamos si podemos ejecutar find()
@@ -23,19 +23,19 @@ export class EntitySelectComponent implements OnChanges {
       this.find();  // Llamamos a find() cada vez que id o data cambian
     }
   }
-  
+
   @Input()
-  id:string;
+  id: string;
   @Input()
   data: EntitySelectView[] = [];
   @Output() onChange = new EventEmitter<string>();
 
-  updateValue() {    
+  updateValue() {
     this.onChange.emit(this.id);
   }
-  
+
   entitySelected: EntitySelectView = null;
-  
+
   find(): void {
     if (this.id && this.data.length > 0) {  // Verifica que id y data existan
       const entity = this.data.find((entity) => entity.Id === this.id);
@@ -47,20 +47,20 @@ export class EntitySelectComponent implements OnChanges {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = "dialog-responsive";
-    dialogConfig.data = { entityData:this.data,titulo : "Seleccione un item" };
+    dialogConfig.data = { entityData: this.data, titulo: "Seleccione un item" };
     dialogConfig.width = "50%";
     dialogConfig.height = "80%";
     this.dialog.open(EntitySelectDialogComponent, dialogConfig).afterClosed()
       .subscribe(response => {
         if (response.result == "ok") {
           if (response && response.selectedEntities) {
-            const entitySelected: EntitySelectView[] = response.selectedEntities;            
+            const entitySelected: EntitySelectView[] = response.selectedEntities;
             entitySelected.forEach(element => {
-             this.entitySelected = element  
-             this.id = element.Id;
-             element.Selected = false;
-             this.updateValue();  
-            });            
+              this.entitySelected = element
+              this.id = element.Id;
+              element.Selected = false;
+              this.updateValue();
+            });
           }
         }
       });

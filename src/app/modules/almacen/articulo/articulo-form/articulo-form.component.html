@@ -4,7 +4,7 @@
     <div class="form-group row">
       <div class="col-xs-1 col-lg-2">
       <label for="name">Codigo</label>
-      <input type="text" class="form-control"  formControlName = "Id"  [readonly]="mode=='edit'">
+      <input type="text" class="form-control"  formControlName = "Id"  readonly>
       <div *ngIf="this.form.get('Id').invalid && (this.form.get('Id').dirty || this.form.get('Id').touched)" class="alert alert-danger">
         <div *ngIf="this.form.get('Id').errors.required">Codigo Requerido.</div>
         <div *ngIf="this.form.get('Id').errors?.serverError">{{this.form.get('Id').errors.serverError}}</div>               

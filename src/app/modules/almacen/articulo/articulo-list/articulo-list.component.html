@@ -1,32 +1,55 @@
-<app-layout>
+  <div [hidden]="isEdit">
   <div toolbar >
-  <app-toolbar (addNew)="addNew()" (exportToExcel)="exportToExcel()" [exportToExcelVisible] = "true" (findByName)="findByName($event)"></app-toolbar> </div>
-    <table class="table table-hover table-responsive-md">
-        <thead>
-          <tr>
-            <th class="col-md-1">Codigo</th>
-            <th class="col-md-4">Nombre                      </th>
-            <th class="col-md-1">Precio</th>
-            <th class="col-md-1"></th>
-            <th class="col-md-1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of articuloData | paginate : {itemsPerPage: itemsPerPage,currentPage: page,totalItems: totalItems}">
-            <td class="col-md-1">{{item.Id}}</td>
-            <td class="col-md-4">{{item.Nombre}}</td>
-            <td class="col-md-1">{{item.PrecioVentaFinal}}</td>
-            <td class="col-md-1">
-              <a [routerLink]="['/almacen/articulo', item.Id]">
-                <i class="material-icons">mode_edit</i>
-              </a>
-            </td>
-            <td class="col-md-1"> <a (click)="delete(item)" >
-              <i class="material-icons btn">delete</i>
-            </a></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="col-md-12"><pagination-controls  class="pagi"  (pageChange)="page = $event"></pagination-controls></div>
- </app-layout>
-    
+    <app-toolbar (addNew)="addNew()" (exportToExcel)="exportToExcel()" [exportToExcelVisible] = "true" (findByName)="applyFilter($event)"></app-toolbar>
+  </div>
+  
+  <div class="">    
+    <mat-table  class="mat-table" [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="mat-column-Id"> {{row.Id}} </mat-cell>
+      </ng-container>
+  
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="Nombre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="mat-column-Nombre"> {{row.Nombre}}</mat-cell>
+      </ng-container>
+  
+      <!-- Precio Column -->
+      <ng-container matColumnDef="PrecioVentaFinal">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Precio </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="mat-column-PrecioVentaFinal"> {{ row.PrecioVentaFinal | number:'1.2-2' }}  </mat-cell>
+      </ng-container>  
+      <!-- Editr Column -->
+      <ng-container matColumnDef="Edit">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="mat-column-Edit">          
+          <a (click)="edit(row.Id)"><mat-icon>edit</mat-icon></a>                 
+       </mat-cell>
+      </ng-container>  
+      <ng-container matColumnDef="Delete">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+        <mat-cell  *matCellDef="let row" class="mat-column-Edit"><a  (click)="delete(row)">
+          <mat-icon class="align-middle">delete</mat-icon>
+        </a></mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>  
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>  
+    <mat-paginator [pageSizeOptions]="[15, 25, 50, 100]"></mat-paginator>
+  </div> 
+</div>
+<div [hidden]="!isEdit">
+  <a  (click)="closeForm()"  class="me-2" style="cursor: pointer;"><span class="material-icons">backspace</span></a>
+  <app-articulo-form [id]="selectedId" (close)="closeForm()" (saved)="onItemSaved($event)" [mode]="mode"></app-articulo-form>
+</div>
+
+
+
+

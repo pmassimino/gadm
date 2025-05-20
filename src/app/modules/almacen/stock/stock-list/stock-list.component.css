@@ -1,0 +1,11 @@
+.icon-button {
+    background: none;    /* Elimina el fondo */
+    border: none;       /* Elimina el borde */
+    padding: 0;         /* Elimina el espacio interno */
+    cursor: pointer;    /* Mantiene el cursor como puntero */
+    outline: none;      /* Elimina el contorno al hacer clic */
+}
+
+.icon-button:hover {
+    opacity: 0.8;       /* Efecto hover opcional */
+}

@@ -9,13 +9,15 @@
         
       </li>
       <div class="nav-item dropdown dropstart">
-        <button class="btn  dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-          {{username}}
+        <button class="btn dropdown-toggle text-center" type="button" id="dropdownMenu2" data-bs-toggle="dropdown">         
+            <mat-icon>account_circle</mat-icon>      
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <li><button class="dropdown-item" type="button"> <a class="dropdown-item" href="/login">Logout</a></button></li>
-          <li><button class="dropdown-item" type="button">Another action</button></li>
-          <li><button class="dropdown-item" type="button">Something else here</button></li>
+          <li><span class="dropdown-item">{{ username }}</span></li>     
+          <li><hr class="dropdown-divider"></li>   
+          <li><a class="dropdown-item d-flex align-items-center" href="/login"><mat-icon class="me-2">logout</mat-icon>Logout</a></li>
+          <li><button class="dropdown-item" type="button"></button></li>
+          <li><button class="dropdown-item" type="button"></button></li>
         </ul>
       </div>
     </ul>

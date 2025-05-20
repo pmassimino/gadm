@@ -28,7 +28,11 @@ import { VentasSettingListComponent } from './setting/ventas-setting-list/ventas
 
 
 @NgModule({
-    declarations: [FacturaFormComponent, FacturaListComponent, FacturaAFIPComponent, FacturaSelectComponent, ComprobanteAsociadoListComponent, PuntoEmisionListComponent, PuntoEmisionFormComponent, ConfigFacturaListComponent, ConfigFacturaFormComponent, PuntoEmisionSelectComponent, PuntoEmisionConfigListComponent,VentasSettingListComponent],
+    declarations: [FacturaFormComponent, FacturaListComponent,
+        FacturaAFIPComponent, FacturaSelectComponent, ComprobanteAsociadoListComponent,
+        PuntoEmisionListComponent, PuntoEmisionFormComponent, ConfigFacturaListComponent,
+        ConfigFacturaFormComponent, PuntoEmisionSelectComponent, PuntoEmisionConfigListComponent,
+        VentasSettingListComponent],
     imports: [
         CommonModule, VentasRoutingModule, SharedModule, FormsModule,
         ReactiveFormsModule,
@@ -40,11 +44,11 @@ import { VentasSettingListComponent } from './setting/ventas-setting-list/ventas
         MatSelectModule,
         MatInputModule,
         MatDialogModule,
-        MatPaginatorModule, 
-        MatSortModule,        
-        MatTableModule, 
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
         MatTabsModule,
-        MatCardModule         
+        MatCardModule
     ]
 })
 export class VentasModule { }

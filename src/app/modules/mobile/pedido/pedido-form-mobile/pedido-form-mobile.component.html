@@ -1,0 +1,116 @@
+<app-layout-mobile>
+   <div class="pedido-container">
+  <!-- Cabecera -->
+  <header class="pedido-header">
+    <h1>Nuevo Pedido</h1>
+    <button class="btn-close" aria-label="Cerrar" (click)="resetearFormulario()">
+      <i class="material-icons">close</i>
+    </button>
+  </header>
+
+  <!-- Sección de cliente -->
+  <section class="seccion-cliente">
+    <div class="seccion-titulo">
+      <h2>Cliente</h2>
+      <button class="btn-buscar" aria-label="Buscar cliente">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+    
+    <div class="input-group">
+      <label for="cliente">Seleccionar cliente</label>
+      <select id="cliente" class="input-select" (change)="seleccionarCliente($event)">
+        <option value="">-- Seleccione --</option>
+        <option *ngFor="let cliente of clientes" [value]="cliente.Id">
+          {{cliente.Nombre}}
+        </option>
+      </select>
+    </div>
+
+    <div class="cliente-info" *ngIf="clienteSeleccionado">
+      <p><strong>Teléfono:</strong> {{clienteSeleccionado.Telefono1 || 'N/A'}}</p>
+      <p><strong>Dirección:</strong> {{clienteSeleccionado.Domicilio || 'N/A'}}</p>
+    </div>
+  </section>
+
+  <!-- Sección de productos -->
+  <section class="seccion-productos">
+    <div class="seccion-titulo">
+      <h2>Productos</h2>
+    </div>
+
+    <!-- Buscador/selector de productos -->
+    <div class="agregar-producto">
+      <div class="input-group">
+        <label for="producto">Agregar producto</label>
+        <select id="producto" class="input-select" (change)="seleccionarProducto($event)">
+          <option value="">-- Buscar producto --</option>
+          <option *ngFor="let producto of productos" [value]="producto.Id">
+            {{producto.Nombre}} ({{producto.PrecioVentaFinal | currency}})
+          </option>
+        </select>
+      </div>
+
+      <div class="producto-cantidad">
+        <div class="input-group">
+          <label for="cantidad">Cantidad</label>
+          <input type="number" id="cantidad" min="1" value="1" 
+                 class="input-number" [(ngModel)]="cantidad">
+        </div>
+        <button class="btn-agregar" (click)="agregarProducto()">Agregar</button>
+      </div>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="lista-productos">
+      <div class="producto-item" *ngFor="let item of itemsPedido; let i = index">
+        <div class="producto-info">
+          <h3>{{item.Nombre}}</h3>
+          <p>{{item.precio | currency}} x {{item.cantidad}}</p>
+        </div>
+        <div class="producto-subtotal">
+          <span>{{item.PrecioVentaFinal * item.Cantidad | currency}}</span>
+          <button class="btn-eliminar" (click)="eliminarProducto(i)">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </div>
+
+      <div class="lista-vacia" *ngIf="itemsPedido.length === 0">
+        <p>No hay productos agregados</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Totales -->
+  <section class="seccion-totales">
+    <div class="total-item">
+      <span>Subtotal</span>
+      <span>{{subtotal | currency}}</span>
+    </div>
+    <div class="total-item">
+      <span>Impuestos ({{porcentajeImpuesto}}%)</span>
+      <span>{{impuestos | currency}}</span>
+    </div>
+    <div class="total-item total-final">
+      <span>Total</span>
+      <span>{{total | currency}}</span>
+    </div>
+  </section>
+
+  <!-- Observaciones -->
+  <section class="seccion-observaciones">
+    <div class="input-group">
+      <label for="observaciones">Observaciones</label>
+      <textarea id="observaciones" rows="3" class="input-textarea" 
+                [(ngModel)]="observaciones"></textarea>
+    </div>
+  </section>
+
+  <!-- Botones de acción -->
+  <footer class="pedido-footer">
+    <button class="btn btn-secundario" (click)="resetearFormulario()">Cancelar</button>
+    <button class="btn btn-primario" (click)="guardarPedido()">Guardar Pedido</button>
+  </footer>
+</div>
+</app-layout-mobile>

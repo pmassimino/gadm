@@ -39,6 +39,7 @@ export class SujetoFormComponent implements OnInit {
   condIva: CondIva[] = [];
   matcher = new MyErrorStateMatcher();
 
+
   errors = [];
   _mode = "";
   @Output() close = new EventEmitter<void>(); // Evento para notificar al padre
@@ -77,10 +78,10 @@ export class SujetoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.popupData();
-    
+
 
     this.createForm();
-    
+
   }
 
   createForm(): void {
@@ -114,9 +115,15 @@ export class SujetoFormComponent implements OnInit {
     this.entityService.findOne(id).subscribe(res => { this.entity = res, this.createForm(); this.getLocalidadByProvincia(); });
   }
   onNombreChanged() {
-    if (this.form.get("NombreComercial").value != "") {
-      let nombre = this.form.get("Nombre");
-      this.form.get("NombreComercial").patchValue(nombre);
+    // Verifica que ambos controles existan
+    if (this.form.get("NombreComercial") && this.form.get("Nombre")) {
+      const nombreComercial = this.form.get("NombreComercial").value;
+      const nombre = this.form.get("Nombre").value;
+
+      // Si NombreComercial está vacío y Nombre tiene valor
+      if (!nombreComercial && nombre) {
+        this.form.get("NombreComercial").patchValue(nombre);
+      }
     }
   }
 
@@ -130,8 +137,14 @@ export class SujetoFormComponent implements OnInit {
   }
 
   getLocalidadByProvincia(): void {
-    this.localidadService.findByProvincia(this.form.get("IdProvincia").value).subscribe(res => { this.localidad = res });
+    this.localidadService.findByProvincia(this.form.get("IdProvincia").value).subscribe(res => {
+      this.localidad = res;
+    });
   }
+  onChangeLocalidad(id: string) {
+    this.form.get('IdLocalidad')?.setValue(id);
+  }
+
   new(): void {
     this.submitted = false;
   }
@@ -165,12 +178,11 @@ export class SujetoFormComponent implements OnInit {
     this.close.emit();
   }
 
-  isValid():boolean
-  {
+  isValid(): boolean {
     return this.form.valid
   }
 
-  
+
 
 
   private numeroDocumentoValidator(control: UntypedFormControl): Observable<ValidationErrors | null> {

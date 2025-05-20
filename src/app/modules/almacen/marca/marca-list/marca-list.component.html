@@ -1,5 +1,5 @@
 <app-layout>
-    <div *ngIf="!isEdit">
+    <div [hidden]="isEdit">
     <div toolbar >
       <app-toolbar (addNew)="addNew()" (exportToExcel)="exportToExcel()" [exportToExcelVisible] = "true"  (findByName)="applyFilter($event)"></app-toolbar> </div>    
     <div class="">    
@@ -37,7 +37,7 @@
       <mat-paginator [pageSizeOptions]="[15, 25, 50, 100]"></mat-paginator>
     </div> 
   </div>
-  <div *ngIf="isEdit">
+  <div [hidden]="!isEdit">
     <a  (click)="closeForm()"  class="me-2" style="cursor: pointer;"><span class="material-icons">backspace</span></a>    
     <app-marca-form [id]="selectedId" (close)="closeForm()" (saved)="onItemSaved($event)" [mode]="mode"></app-marca-form>
   </div>

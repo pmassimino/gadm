@@ -1,0 +1,39 @@
+<!-- icon-menu-layout.component.html -->
+<div class="mobile-layout">
+  <!-- Header fijo -->
+  <header class="app-header">
+    <h1 class="app-title">{{appName}}</h1>
+    <button class="menu-button" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </header>
+
+  <!-- Menú de iconos (solo visible en móvil/tablet) -->
+  <nav class="icon-menu" [class.visible]="menuVisible">
+    <div class="icon-grid">
+      <a *ngFor="let item of menuItems" 
+         class="icon-item" 
+         [routerLink]="item.route"
+         matTooltip="{{item.name}}">
+        <mat-icon>{{item.icon}}</mat-icon>
+        <span class="icon-label">{{item.name}}</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="content-area">
+    <ng-content>          
+    </ng-content>   
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer con navegación básica -->
+  <footer class="app-footer">
+    <div *ngFor="let item of footerItems" class="footer-item">
+      <a [routerLink]="item.route">
+        <mat-icon>{{item.icon}}</mat-icon>
+      </a>
+    </div>
+  </footer>
+</div>

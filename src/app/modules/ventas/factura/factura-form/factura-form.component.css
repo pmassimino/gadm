@@ -23,4 +23,40 @@
     border-radius: var(--bs-border-radius);
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+/* Estilos para el contenedor del detalle */
+.detalle-container {
+  max-height: 300px; /* Ajusta esta altura según necesites */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* Estilos para la tabla de detalle */
+.detalle-table {
+  margin-bottom: 0;
+}
+
+/* Estilos para el cuerpo del detalle */
+.detalle-body {
+  display: block;
+  overflow-y: auto;
+}
+
+/* Estilos para el contenedor de totales */
+.totales-container {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border: 1px solid #ddd;
+  position: sticky;
+  bottom: 0;
+}
+
+/* Estilos para el header fijo (opcional) */
+.header-row {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
   

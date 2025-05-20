@@ -24,11 +24,15 @@ import { SettingGlobalService } from '../global/services/setting-global.service'
 import { TransaccionService } from './services/transaccion.service';
 import { NumeradorDocumentoFormComponent } from './NumeradorDocumento/numerador-documento-form/numerador-documento-form.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SujetoListLayoutComponent } from './sujeto/sujeto-list-layout/sujeto-list-layout.component';
+import { EntitySelectComponent } from '../../shared/entity-select/entity-select.component';
 
 
 
 @NgModule({
-  declarations: [SujetoListComponent, SujetoFormComponent, AreaSelectComponent, NumeradorDocumentoListComponent, NumeradorDocumentoFormComponent],
+  declarations: [SujetoListComponent, SujetoFormComponent,SujetoListLayoutComponent,
+    AreaSelectComponent,
+     NumeradorDocumentoListComponent, NumeradorDocumentoFormComponent],
   imports: [CommonModule,ComunRoutingModule,SharedModule,FormsModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -43,10 +47,12 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSortModule,        
     MatTableModule,
     NgxPaginationModule,  
-    MatTabsModule,        
+    MatTabsModule,  
+    EntitySelectComponent      
   ],
   providers: [
     SujetoService,AreaService,SessionService,SettingGlobalService,TransaccionService
-  ]
+  ],
+  exports:[SujetoListComponent]
 })
 export class ComunModule { }

@@ -37,6 +37,7 @@ export class Factura {
     Tributos: DetalleTributos[] = [];
     MedioPago: MedioPago[] = [];
     ComprobanteAsociado: ComprobanteAsociado[] = [];
+    Pedidos: Pedido[] = [];
     Sujeto: Sujeto;
 }
 
@@ -92,6 +93,11 @@ export class ComprobanteAsociado {
     Id: string;
     Item: number;
     IdFactura: string;
+    Factura: Factura;
+}
+export class FacturaPedido {
+    Id: string;
+    IdPedido: string;
     Factura: Factura;
 }
 export class FacturaSelectView extends Factura {
@@ -155,5 +161,84 @@ export class ItemPuntoEmision {
     public IdPuntoEmision: string;
     public PuntoEmision: PuntoEmision;
     public ConfigFactura: ConfigFactura;
+}
+
+export class Pedido {
+    Id: string;
+    IdSucursal: string;
+    IdArea: string;
+    IdSeccion: string;
+    IdTransaccion: string;
+    Tipo: string;
+    Letra: string;
+    IdPuntoEmision: string;
+    Pe: number;
+    Numero: number;
+    Fecha: string;
+    FechaComp: string;
+    FechaEntrega: string;
+    FechaVencimiento: string;
+    IdMoneda: string;
+    CotizacionMoneda: number;
+    Origen: string;
+    IdCuenta: string;
+    TotalNeto: number;
+    PorDescuento: number;
+    TotalDescuento: number;
+    Total: number;
+    TotalExento: number;
+    TotalGravado: number;
+    TotalNoGravado: number;
+    TotalIva: number;
+    TotalOTributos: number;
+    Obs: string;
+    CreadoPor: string;
+    Estado: string;
+    Detalle: DetallePedido[];
+    Iva: DetalleIvaPedido[];
+    Estados: EstadoPedido[];
+    Sujeto: Sujeto;
+}
+
+export class DetallePedido {
+    Id: string;
+    Item: number;
+    IdArticulo: string;
+    IdUnidadMedida: string;
+    Cantidad: number;
+    Concepto: string;
+    Precio: number;
+    PorBonificacion: number;
+    Bonificacion: number;
+    Gravado: number;
+    CondIva: string;
+    Iva: number;
+    NoGravado: number;
+    Exento: number;
+    OtroTributo: number;
+    Total: number;
+    Lote: string;
+    Serie: string;
+    Articulo: Articulo;
+    Pedido: Pedido;
+}
+
+export class DetalleIvaPedido {
+    Id: string;
+    Item: number;
+    CondIva: string;
+    BaseImponible: number;
+    Importe: number;
+    Pedido: Pedido;
+}
+
+export class EstadoPedido {
+    Id: string;
+    Item: number;
+    Estado: string;
+    Fecha: string;
+    IdUsuario: string;
+    Comentario: string;
+    Pedido: Pedido;
 }
 

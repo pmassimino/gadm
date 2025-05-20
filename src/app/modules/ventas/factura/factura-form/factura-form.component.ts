@@ -300,7 +300,7 @@ export class FacturaFormComponent implements OnInit {
       this.entity = res; this.createForm(); this.onNextNumber();
       this.markFormGroupTouched(this.form); this.addMedioPago();
       this.popupPuntosEmision(this.entity.IdSeccion);      
-      this.form.patchValue({"IdPuntoEmision": "00002"});
+      this.form.patchValue({"IdPuntoEmision": "00001"});
         
     }, err => { console.log(err); });
   }
@@ -342,6 +342,7 @@ export class FacturaFormComponent implements OnInit {
   }
   onAddNew(): void {
     this.router.navigate(['ventas/factura/add']);
+    this.setDefaultValues();  
   }
 
   calculateTotal(): void {

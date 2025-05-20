@@ -1,0 +1,42 @@
+<div class="mobile-dashboard">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h1>{{empresa.NombreComercial}}</h1>
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+    </header>
+  
+    <!-- Cards destacadas -->
+    <div class="featured-cards">
+      <div *ngFor="let card of featuredCards" class="card" [class.trend-up]="card.trend === 'up'" 
+           [class.trend-down]="card.trend === 'down'">
+        <div class="card-icon">
+          <mat-icon>{{card.icon}}</mat-icon>
+        </div>
+        <div class="card-content">
+          <h3>{{card.title}}</h3>
+          <p class="value">{{card.value}}</p>
+          <p *ngIf="card.change" class="trend">
+            <mat-icon>{{card.trend === 'up' ? 'trending_up' : 'trending_down'}}</mat-icon>
+            {{card.change}}
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Menú de iconos -->
+    <div class="icon-grid">
+        <a *ngFor="let item of menuItems" 
+        [routerLink]="item.route"
+        class="icon-item"
+        [style.backgroundColor]="item.color + '20'"
+        [style.borderColor]="item.color"
+        matTooltip="{{item.title}}"
+        matTooltipPosition="below">
+       <mat-icon [style.color]="item.color">{{item.icon}}</mat-icon>
+       <span>{{item.title}}</span>
+     </a>  <!-- Asegúrate que esta etiqueta esté cerrada -->
+    </div> 
+    
+  </div>

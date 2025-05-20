@@ -15,60 +15,56 @@ import { CarritoCompraService } from '../../services/carrito-compra.service';
 })
 export class ArticuloSelectComponent implements OnInit {
 
-  dataList: Articulo[] = [];  
+  dataList: Articulo[] = [];
   dataSource: MatTableDataSource<Articulo>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['Id', 'Nombre', 'PrecioVentaFinal','Edit'];
-  page = 1;   
+  displayedColumns = ['Id', 'Nombre', 'PrecioVentaFinal', 'Edit'];
+  page = 1;
   itemsPerPage = 15;
-  totalItems : number;     
+  totalItems: number;
 
-  constructor(private service: ArticuloService,private carritoService: CarritoCompraService,
-       private router: Router,private dialogRef: MatDialogRef<ArticuloSelectComponent>) 
-       {
-       var pservice:ArticuloService = service;
-       }
-      ngOnInit(): void {
-        this.getAll();
-      }
-    
-      configTable() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-      getAll():void
-      { 
-        this.service.findAll()
-        .subscribe(res => {
-          this.dataSource = new MatTableDataSource(res);
-          this.service.CurrentList = res;
-          this.configTable(); } ,
-        err => {console.log(err) ; });
-        
-      }
-      exportToExcel() {
-        //this.excelService.exportAsExcelFile(this.dataSource.data, 'articulos');
-      }
-    
-      applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
-      }
-    add(item:Articulo): void
-      {       
-       this.carritoService.add(item,1);
-      }    
-    
-      close():void
-      {
-        this.dialogRef.close({ data: 'ok' });
-      }
-      cancel():void
-      {
-        this.dialogRef.close({ data: 'cancel' });
-      }
-     
+  constructor(private service: ArticuloService, private carritoService: CarritoCompraService,
+    private router: Router, private dialogRef: MatDialogRef<ArticuloSelectComponent>) {
+    var pservice: ArticuloService = service;
+  }
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  configTable() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+  getAll(): void {
+    this.service.findAll()
+      .subscribe(res => {
+        this.dataSource = new MatTableDataSource(res);
+        this.service.CurrentList = res;
+        this.configTable();
+      },
+        err => { console.log(err); });
+
+  }
+  exportToExcel() {
+    //this.excelService.exportAsExcelFile(this.dataSource.data, 'articulos');
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+  add(item: Articulo): void {
+    this.carritoService.add(item, 1);
+  }
+
+  close(): void {
+    this.dialogRef.close({ data: 'ok' });
+  }
+  cancel(): void {
+    this.dialogRef.close({ data: 'cancel' });
+  }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -27,12 +27,20 @@ export class ToolbarComponent implements OnInit {
   findByName = new EventEmitter<string>();
   @Output()
   print = new EventEmitter();
+  @Input() 
+  toolbarTemplate: TemplateRef<any>;
 
   constructor() { }
   ngOnInit() {  
   } 
   
+  
+  navbarOpen = false;
 
+  
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
   onAddNew()
   {
     this.addNew.emit();

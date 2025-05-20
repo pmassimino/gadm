@@ -29,7 +29,8 @@ export const ROUTESGLOBAL: RouteInfoGlobal[] = [{title: 'Almacen', icon: '',
 Routes: [{ path: '/almacen/articulo',     title: 'Articulos',    icon: 'nc-diamond',  class: '' },
 { path: '/almacen/familia',     title: 'Familias',    icon: 'nc-diamond',  class: '' },
 { path: '/almacen/marca',     title: 'Marcas',    icon: 'nc-diamond',  class: '' },
-{ path: '/almacen/deposito',     title: 'Depositos',    icon: 'nc-diamond',  class: '' }
+{ path: '/almacen/deposito',     title: 'Depositos',    icon: 'nc-diamond',  class: '' },
+{ path: '/almacen/stock',     title: 'Stock',    icon: 'nc-diamond',  class: '' }
 ]},
 {title: 'Comun', icon: '',
 Routes: [{ path: '/comun/sujeto',     title: 'Sujeto',    icon: 'nc-diamond',  class: '' }]},

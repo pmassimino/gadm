@@ -1,101 +1,101 @@
-    <h3>Sujeto</h3>
-    <div>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="form-group row">
-          <div class="alert alert-warning alert-dismissible fade show" *ngFor="let error of errors" role="alert">
-            {{error.mensaje}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        </div>
-        <!-- Código -->
-      <div class="form-group row">
-        <div class="col-sm-12 col-md-2">         
-          <label for="Id">Código</label>
-          <input type="text" class="form-control" id="Id" formControlName="Id" name="Id" [readonly]="mode === 'edit'">
+<h3>Sujeto</h3>
+<div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="alert alert-warning alert-dismissible fade show" *ngFor="let error of errors" role="alert">
+        {{error.mensaje}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+    <!-- Código -->
+    <div class="form-group row">
+      <div class="col-sm-12 col-md-2">
+        <label for="Id">Código</label>
+        <input type="text" class="form-control" id="Id" formControlName="Id" name="Id" [readOnly]="true">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-6 col-lg-6">
+        <label for="name">Nombre</label>
+        <input type="text" class="form-control" id="Nombre" formControlName="Nombre" required name="Nombre">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-6 col-lg-6">
+        <label for="name">Nombre Comercial</label>
+        <input type="text" class="form-control" formControlName="NombreComercial" required name="NombreComercial"
+          (focus)="onNombreChanged()">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-6 col-lg-6">
+        <label for="name">Domicilio</label>
+        <input type="text" class="form-control" formControlName="Domicilio" required name="Domicilio">
+      </div>
+      <div class="col-xs-2 col-lg-2">
+        <label for="name">Altura</label>
+        <input type="number" class="form-control" formControlName="Altura" required name="Altura">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-3">
+        <label for="IdProvincia">Provincia</label>
+        <select class="form-control" formControlName="IdProvincia" name="IdProvincia"
+          (change)="getLocalidadByProvincia()">
+          <option *ngFor="let item of provincia" [ngValue]="item.Id">{{item.Nombre}} </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-3">
+
+        <label for="IdLocalidad">Localidad</label>
+        <select class="form-control" formControlName="IdLocalidad" name="IdLocalidad">
+          <option *ngFor="let item of localidad" [ngValue]="item.Id">{{item.Nombre}} </option>
+        </select>
+
+      </div>
+      <div class="col-md-2">
+        <label>Codigo Postal</label>
+        <input type="text" class="form-control" formControlName="CodigoPostal" required name="CodigoPostal">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-3">
+        <label for="IdCondicionIva">Cond. Iva</label>
+        <select class="form-control" formControlName="IdCondicionIva" name="IdCondicionIva">
+          <option *ngFor="let item of condIva" [ngValue]="item.Id">{{item.Nombre}} </option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="name">Tipo Documento</label>
+        <select class="form-control" formControlName="IdTipoDoc" name="IdTipoDoc">
+          <option *ngFor="let item of tipoDocumento" [ngValue]="item.Id">{{item.Nombre}} </option>
+        </select>
+      </div>
+      <div class="col-xs-2 col-lg-2">
+        <label for="name">Numero</label>
+        <input type="number" class="form-control" formControlName="NumeroDocumento" required name="NumeroDocumento">       
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-4 col-lg-4">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Ex. sunombre@example.com" class="form-control" required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Por favor ingrese un mail válido">
+      </div>
+    </div>
+     <!-- Cuenta Ingreso -->
+      <div class="form-group row">        
+        <div class="col-sm-12 col-md-4">
+          <label class="form-label"></label>
+          <app-entity-select [data]="localidad" [id]="form.get('IdLocalidad')?.value" (onChange)="onChangeLocalidad($event)">
+          </app-entity-select>
         </div>
       </div>
-        <div class="form-group row">
-          <div class="col-xs-6 col-lg-6">
-               <label for="name">Nombre</label>
-               <input type="text" class="form-control" id="Nombre" formControlName = "Nombre" required name="Nombre"  >
-          </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-xs-6 col-lg-6">
-                 <label for="name">Nombre Comercial</label>
-                 <input type="text" class="form-control" formControlName = "NombreComercial" required name="NombreComercial" onfocus="onNombreChanged()" >
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-xs-6 col-lg-6">
-                 <label for="name">Domicilio</label>
-                 <input type="text" class="form-control"  formControlName = "Domicilio" required name="Domicilio">
-            </div>
-            <div class="col-xs-2 col-lg-2">
-                <label for="name">Altura</label>
-                <input type="number" class="form-control" formControlName = "Altura" required name="Altura">
-           </div>
-        </div>
-        <div class="form-group row">   
-        <div class="col-md-3">
-          <label for="IdProvincia">Provincia</label>
-          <select class="form-control" formControlName = "IdProvincia" name="IdProvincia" (change)="getLocalidadByProvincia()" >
-             <option *ngFor="let item of provincia" [ngValue]="item.Id" >{{item.Nombre}} </option>
-           </select>   
-         </div> 
-        </div>
-        <div class="form-group row">   
-          <div class="col-md-3">
-            <label for="IdLocalidad">Localidad</label>
-            <select class="form-control" formControlName = "IdLocalidad" name="IdLocalidad" >
-               <option *ngFor="let item of localidad" [ngValue]="item.Id" >{{item.Nombre}} </option>
-             </select>   
-           </div>             
-          <div class="col-md-2">
-            <label >Codigo Postal</label>
-            <input type="text" class="form-control" formControlName = "CodigoPostal" required name="CodigoPostal">   
-          </div>                 
-       </div>    
-        <div class="form-group row"> 
-          <div class="col-md-3">
-            <label for="IdCondicionIva">Cond. Iva</label>
-            <select class="form-control" formControlName = "IdCondicionIva" name="IdCondicionIva" >
-               <option *ngFor="let item of condIva" [ngValue]="item.Id" >{{item.Nombre}} </option>
-             </select>   
-           </div>         
-          <div class="col-md-2">
-          <label for="name">Tipo Documento</label>
-          <select class="form-control" formControlName = "IdTipoDoc" name="IdTipoDoc" >
-             <option *ngFor="let item of tipoDocumento" [ngValue]="item.Id" >{{item.Nombre}} </option>
-           </select>
-           <div *ngIf="f.IdTipoDoc.errors?.serverError">{{f.IdTipoDoc.errors.serverError}}</div>         
-           
-          </div>
-           <div class="col-xs-2 col-lg-2">
-            <label for="name">Numero</label>
-            <input type="number" class="form-control" formControlName = "NumeroDocumento" required name="NumeroDocumento" >
-            <div *ngIf="f.NumeroDocumento.errors?.serverError">{{f.NumeroDocumento.errors.serverError}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-        <div class="col-xs-4 col-lg-4">         
-            <label for="email">Email</label>
-            <input type="email" 
-                   id="email" 
-                   name="email" 
-                   placeholder="Ex. sunombre@example.com"
-                   class="form-control"
-                   required
-                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                   title="Por favor ingrese un mail válido">                 
-        </div>
-        </div>        
-        <div class="mt-2">
-          <button type="submit" [disabled]="!isValid()" class="btn btn-primary">Aceptar</button>
-          <button type="button" class="btn btn-secondary ms-1" (click)="onClose()">Cancelar</button>
-        </div>
-      </form> 
+    <div class="mt-2">
+      <button type="submit" [disabled]="!isValid()" class="btn btn-primary">Aceptar</button>
+      <button type="button" class="btn btn-secondary ms-1" (click)="onClose()">Cancelar</button>
     </div>
-    
-    
-
+  </form>
+</div>

@@ -1,17 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticuloListComponent } from './articulo-list.component';
 
-describe('ArticuloListComponent', () => {
+describe('ArticuloListMatComponent', () => {
   let component: ArticuloListComponent;
   let fixture: ComponentFixture<ArticuloListComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ ArticuloListComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticuloListComponent);

@@ -20,15 +20,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EntityMultiSelectDialogComponent } from './entity-multi-select-dialog/entity-multi-select-dialog.component';
 import { LayoutEntityComponent } from './layout-entity/layout-entity.component';
+import { LayoutMobileComponent } from './layout-mobile/layout-mobile.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 
 @NgModule({
   declarations: [LayoutComponent,LayoutEntityComponent, NavbarComponent, FooterComponent, HeaderComponent,SidebarComponent,
-     ToolbarComponent, ToolbarFormComponent, EntitySelectDialogComponent,EntityMultiSelectDialogComponent],
+     ToolbarComponent, ToolbarFormComponent, EntitySelectDialogComponent,EntityMultiSelectDialogComponent,LayoutMobileComponent],
   imports: [CommonModule, RouterModule, MatIconModule, FormsModule ,
-    MatExpansionModule,MatListModule,MatDialogModule,MatTableModule,MatPaginatorModule],
-  exports:[LayoutComponent,LayoutEntityComponent,ToolbarComponent,ToolbarFormComponent]
+    MatExpansionModule,MatListModule,MatDialogModule,MatTableModule,MatPaginatorModule,MatTooltipModule],
+  exports:[LayoutComponent,LayoutEntityComponent,ToolbarComponent,ToolbarFormComponent,LayoutMobileComponent]
 })
 export class SharedModule { }

@@ -1,0 +1,254 @@
+/* Estilos base para móviles */
+.pedido-container {
+  font-family: 'Roboto', sans-serif;
+  max-width: 100%;
+  padding: 0;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #3f51b5;
+  color: white;
+}
+
+.pedido-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: white;
+}
+
+section {
+  background: white;
+  margin: 8px 0;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.seccion-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.seccion-titulo h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.input-select, .input-number, .input-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.producto-cantidad {
+  display: flex;
+  gap: 8px;
+}
+
+.producto-cantidad .input-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.btn-agregar {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0 16px;
+  border-radius: 4px;
+  align-self: flex-end;
+  height: 42px;
+}
+
+.lista-productos {
+  margin-top: 16px;
+}
+
+.producto-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.producto-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+}
+
+.producto-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.producto-subtotal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.btn-eliminar {
+  background: none;
+  border: none;
+  color: #f44336;
+}
+
+.seccion-totales {
+  background: #f9f9f9;
+}
+
+.total-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.total-final {
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+  margin-top: 8px;
+  padding-top: 12px;
+}
+
+.pedido-footer {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  background: white;
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.btn-primario {
+  background: #3f51b5;
+  color: white;
+}
+
+.btn-secundario {
+  background: #f5f5f5;
+  color: #333;
+}
+/* Estilos para validación */
+.ng-invalid:not(form) {
+  border-left: 4px solid #f44336;
+}
+
+.ng-valid:not(form) {
+  border-left: 4px solid #4caf50;
+}
+
+/* Animaciones */
+.producto-item {
+  transition: all 0.3s ease;
+}
+
+.producto-item:hover {
+  background-color: #f9f9f9;
+}
+
+.btn-agregar:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Loading state */
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3f51b5;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Media queries para tablets y desktop */
+@media (min-width: 768px) {
+  .pedido-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-height: auto;
+  }
+  
+  .pedido-header {
+    border-radius: 4px 4px 0 0;
+  }
+  
+  section {
+    margin: 16px 0;
+  }
+  
+  .pedido-footer {
+    position: static;
+    box-shadow: none;
+    justify-content: flex-end;
+  }
+  
+  .btn {
+    flex: none;
+    padding: 12px 24px;
+  }
+}

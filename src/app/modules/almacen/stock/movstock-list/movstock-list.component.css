@@ -1,0 +1,32 @@
+/* Estilos corregidos */
+.movStock-table {
+  width: 100%;
+}
+
+/* Asegúrate de que tanto header como cell tengan el mismo ancho */
+.movStock-table-fecha {
+  width: 10%;
+  min-width: 10%;
+  flex: 0 0 10%;
+}
+
+.movStock-table-numero {
+  width: 10%;
+  min-width: 10%;
+  flex: 0 0 10%;
+}
+
+.movStock-table-concepto {
+  width: 50%;
+  min-width: 50%;
+  flex: 0 0 50%;
+}
+
+/* Columnas corregidas (nota la coma que faltaba) */
+.movStock-table-ingreso,
+.movStock-table-egreso,
+.movStock-table-saldo {
+  width: 10%;
+  min-width: 10%;
+  flex: 0 0 10%;
+}

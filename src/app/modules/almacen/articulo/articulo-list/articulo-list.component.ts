@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table'
 import { Articulo } from '../../models/model';
 import { ArticuloService } from '../../services/articulo.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExcelService } from '../../../../core/services/excel.service';
-
 
 @Component({
   selector: 'app-articulo-list',
@@ -11,61 +13,86 @@ import { ExcelService } from '../../../../core/services/excel.service';
   styleUrls: ['./articulo-list.component.css']
 })
 export class ArticuloListComponent implements OnInit {
+  
+  dataSource: MatTableDataSource<Articulo>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns = ['Id', 'Nombre', 'PrecioVentaFinal', 'Edit', 'Delete'];
+  isEdit: boolean = false;
+  selectedId: string = "";
+  mode: 'new' | 'edit' | '' = '';
+  currentFilter: string = ''
+  constructor(private entityService: ArticuloService, private router: Router, private route: ActivatedRoute, private excelService: ExcelService) { }
 
-   page = 1;   
-   itemsPerPage = 15;
-   totalItems : number; 
-   articuloData: Articulo[] = [];    
+  ngOnInit(): void {
+    this.getAll();
+  }
 
-    constructor(private articuloApi: ArticuloService, private router: Router,private excelService: ExcelService) { }
+  configTable() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+  getAll(): void {
+    this.entityService.findAll()
+      .subscribe(res => {
+        this.dataSource = new MatTableDataSource(res);        
+        this.configTable();
+      },
+        err => { console.log(err); });
 
-    ngOnInit(): void
-      {
-        this.getAll();
-      }
+  }
 
-    addNew(): void
-      {       
-        this.router.navigate(['almacen/articulo/add']);
-      }
-    edit(id:string)
-      {
+  addNew(): void {
+    this.isEdit = true;
+    this.mode = 'new';
+    this.selectedId = '';
+  }
 
+  edit(id: string): void {
+    this.isEdit = true;
+    this.mode = 'edit';
+    this.selectedId = id;
+  }
+
+  closeForm(): void {
+    this.isEdit = false;
+    this.mode = '';
+    this.selectedId = '';
+  }
+  onItemSaved(event: { action: 'create' | 'update'; data: Articulo }): void {
+    if (event.action === 'create') {
+      this.dataSource.data.push(event.data);
+    } else if (event.action === 'update') {
+      this.dataSource.data = this.dataSource.data.map(e => e.Id === event.data.Id ? event.data : e);
+    }
+    this.closeForm();
+  }
+
+  delete(entity: Articulo) {
+      if (!confirm(`¿Eliminar ${entity.Nombre}?`)) return;
+      const index = this.dataSource.data.findIndex(item => item.Id === entity.Id);
+      if (index > -1) {
+        // Crear un nuevo array para que Angular detecte el cambio
+        const newData = [...this.dataSource.data];
+        newData.splice(index, 1);
+        this.dataSource.data = newData;
+        this.entityService.delete(entity.Id).subscribe({
+          error: () => {
+            // Revertir la operación si falla
+            const revertedData = [...this.dataSource.data];
+            revertedData.splice(index, 0, entity);
+            this.dataSource.data = revertedData;
+            alert("No se pudo eliminar");
+          }
+        });
       }
-    getAll():void
-      {
-        if (this.articuloApi.CurrentList == null)
-        {
-        this.articuloApi.findAll()
-        .subscribe(res => {this.articuloData = res;this.articuloApi.CurrentList = res; this.totalItems=res.length;} ,
-        err => {console.log(err) ; });
-        }
-        else
-        {
-          this.articuloData = this.articuloApi.CurrentList;
-        }
-      }
-      findByName(name): void {       
-        //this.articuloApi.findByName(name)
-        //.subscribe(res => {this.articuloData = res; console.log(this.articuloData); } , err => {console.log(err) ; });
-       this.articuloData.filter(f=> f.Nombre.toUpperCase().includes(name.toUpperCase()));
-       
-      }
-      delete(articulo){
-        if (confirm("Are you sure you want to delete " + articulo.nombre + "?")) {
-          var index = this.articuloData.indexOf(articulo);
-          this.articuloData.splice(index, 1);
-    
-          this.articuloApi.delete(articulo.id)
-            .subscribe(null,
-              err => {
-                alert("El articulo no se puede eliminar.");
-                // Revert the view back to its original state
-                this.articuloData.splice(index, 0, articulo);
-              });
-        }
-      }
-      exportToExcel() {
-        this.excelService.exportAsExcelFile(this.articuloData, 'articulos');
-      }
+    }
+  exportToExcel() {
+    this.excelService.exportAsExcelFile(this.dataSource.data, 'articulos');
+  }
+
+  applyFilter(filterValue: string) {
+    this.currentFilter = filterValue.trim().toLowerCase(); // Almacena el filtro
+    this.dataSource.filter = this.currentFilter; // Aplica el filtro
+  }
 }
