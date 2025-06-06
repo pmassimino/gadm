@@ -13,7 +13,7 @@ export class PedidoService extends CrudService<Pedido,string> {
 
   selectEvent = new EventEmitter<Pedido[]>();
   constructor(protected http: HttpClient, protected config: ConfigService) {
-    super(http, config.data.apiUrl + '/ventas/factura/');
+    super(http, config.data.apiUrl + '/ventas/pedido/');
   }
   public DigitosDecimal:number=2;
   print(id: string): Observable<any>

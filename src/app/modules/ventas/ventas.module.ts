@@ -24,6 +24,7 @@ import { ConfigFacturaFormComponent } from './configfactura/config-factura-form/
 import { PuntoEmisionSelectComponent } from './puntoemision/punto-emision-select/punto-emision-select.component';
 import { PuntoEmisionConfigListComponent } from './configfactura/punto-emision-config-list/punto-emision-config-list.component';
 import { VentasSettingListComponent } from './setting/ventas-setting-list/ventas-setting-list.component';
+import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component';
 
 
 
@@ -32,7 +33,7 @@ import { VentasSettingListComponent } from './setting/ventas-setting-list/ventas
         FacturaAFIPComponent, FacturaSelectComponent, ComprobanteAsociadoListComponent,
         PuntoEmisionListComponent, PuntoEmisionFormComponent, ConfigFacturaListComponent,
         ConfigFacturaFormComponent, PuntoEmisionSelectComponent, PuntoEmisionConfigListComponent,
-        VentasSettingListComponent],
+        VentasSettingListComponent,PedidoListComponent],
     imports: [
         CommonModule, VentasRoutingModule, SharedModule, FormsModule,
         ReactiveFormsModule,

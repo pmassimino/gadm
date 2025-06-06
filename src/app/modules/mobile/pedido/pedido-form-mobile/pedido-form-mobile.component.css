@@ -6,6 +6,11 @@
   background: #f5f5f5;
   min-height: 100vh;
 }
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Para un scroll suave en iOS */
+}
 
 .pedido-header {
   display: flex;

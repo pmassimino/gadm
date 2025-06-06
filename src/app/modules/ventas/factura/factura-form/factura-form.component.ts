@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { Factura, DetalleFactura, MedioPago, FacturaSelectView, ComprobanteAsociado, PuntoEmision, ConfigFactura } from '../../models/model';
+import { Factura, DetalleFactura, MedioPago, FacturaSelectView, ComprobanteAsociado, PuntoEmision, ConfigFactura, FacturaPedido } from '../../models/model';
 import { FacturaService } from '../../services/factura.service';
 import { SujetoService } from '../../../comun/services/sujeto.service';
 import { ArticuloService } from '../../../almacen/services/articulo.service';
@@ -70,17 +70,27 @@ export class FacturaFormComponent implements OnInit {
   ngOnInit(): void {
     this.popupData();
     this._id = this.route.snapshot.params['id'];
+     // Obtener factura modelo de los datos de ruta
+    const facturaModelo = this.route.snapshot.data['facturaModelo'];
     //editar
     if (this._id) {
       this.getById(this._id);
       this.mode = "edit"
     }
     else //set default values
-    {
-      this.setDefaultValues();
-
+    {     
+      // Si hay factura modelo, usarla, sino valores por defecto
+      if (facturaModelo) {
+        this.entity = facturaModelo;
+        this.createForm();
+        this.popupEntity(this.entity);
+        this.calculateTotal();
+      } 
+      else
+      {      
+       this.setDefaultValues();      
+      }
     }
-
   }
 
   createForm(): void {
@@ -114,7 +124,8 @@ export class FacturaFormComponent implements OnInit {
       Obs: new UntypedFormControl(this.entity.Obs),
       Detalle: this.formBuilder.array([], Validators.required),
       MedioPago: this.formBuilder.array([]),
-      ComprobanteAsociado: this.formBuilder.array([])
+      ComprobanteAsociado: this.formBuilder.array([]),
+      Pedidos:this.formBuilder.array([])
     });
     this.form.get('Letra').valueChanges.subscribe(res => this.onNextNumber());
     this.form.get('Tipo').valueChanges.subscribe(res => this.onNextNumber());  
@@ -129,6 +140,9 @@ export class FacturaFormComponent implements OnInit {
   
   get comprobanteasociado(): UntypedFormArray {
     return this.form.get('ComprobanteAsociado') as UntypedFormArray;
+  }
+  get Pedidos(): UntypedFormArray {
+    return this.form.get('Pedidos') as UntypedFormArray;
   }
 
 
@@ -235,6 +249,16 @@ export class FacturaFormComponent implements OnInit {
     this.comprobanteasociado.push(itemGrp);
     return itemGrp;
   }
+  createPedido(item: FacturaPedido): UntypedFormGroup {
+
+    let numero = this.entity.Pedidos.length;
+    let itemGrp = this.formBuilder.group({
+      Id: this.entity.Id,      
+      IdPedido: new UntypedFormControl(item.IdPedido, Validators.required)
+    });
+    this.Pedidos.push(itemGrp);
+    return itemGrp;
+  }
   updateImporteMedioPago(item: any) {
     let pitem = item;
   }
@@ -267,19 +291,21 @@ export class FacturaFormComponent implements OnInit {
     this.tipoFacturaService.findAll().subscribe(res => { this.tipoFactura = res; }, err => { console.log(err); });
     this.cuentaMayorService.findMediosPagos().subscribe(res => { this.mediosPagos = res }, err => { console.log(err); })
     this.sujetoService.findOne(this.entity.IdCuenta).subscribe();
-    this.condIvaOperacionService.findAll().subscribe(res => { this.condIva = res; }, err => { console.log(err); });
+    this.condIvaOperacionService.findAll().subscribe(res => { this.condIva = res;this.calculateTotal() }, err => { console.log(err); });
     this.configFacturaService.findAll().subscribe(res=>{this.configFactura=res;this.popupPuntosEmision(this.entity.IdSeccion)})
   }
   popupEntity(entity: Factura): void {
     entity.MedioPago.forEach(item => this.createMedioPago(item));
     entity.Detalle.forEach(item => this.createItem(item));
     entity.ComprobanteAsociado.forEach(item => this.createComprobanteAsociado(item));
+    entity.Pedidos.forEach(item=>this.createPedido(item));
     this.popupPuntosEmision(this.entity.IdSeccion)
   }
   popupPuntosEmision(idSeccion: string) {
     // Obtener la instancia de ConfigFactura con el id proporcionado
     const configFacturaInstancia = this.configFactura.find(w=>w.Id==idSeccion); // Supongamos que ya tienes esta instancia
-
+    if (configFacturaInstancia == undefined)
+       return
     // Obtener los ids de PuntosEmision de la ConfigFactura actual con el idSeccion proporcionado
     const idsPuntosEmision = configFacturaInstancia.PuntosEmision
       .filter(item => item.Id === idSeccion)
@@ -558,5 +584,6 @@ export class FacturaFormComponent implements OnInit {
       }
     });
   }
+
 
 }

@@ -22,11 +22,12 @@ import { ComunModule } from '../comun/comun.module';
 import { StockListLayoutMobileComponent } from './stock/stock-list-layout-mobile/stock-list-layout-mobile.component';
 import { ArticuloListLayoutMobileComponent } from './articulo/articulo-list-layout-mobile/articulo-list-layout-mobile.component';
 import { PedidoFormMobileComponent } from './pedido/pedido-form-mobile/pedido-form-mobile.component';
+import { PedidoAccionesMobileComponent } from './pedido/pedido-acciones-mobile/pedido-acciones-mobile.component';
 
 
 @NgModule({
   declarations: [MobileDashboardComponent,ArticuloListLayoutMobileComponent,
-    StockListLayoutMobileComponent,SujetoListLayoutMobileComponent,PedidoFormMobileComponent],
+    StockListLayoutMobileComponent,SujetoListLayoutMobileComponent,PedidoFormMobileComponent,PedidoAccionesMobileComponent],
   imports: [
     CommonModule,
     MobileRoutingModule, 

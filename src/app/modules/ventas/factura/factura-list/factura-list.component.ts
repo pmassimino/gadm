@@ -15,103 +15,97 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
   styleUrls: ['./factura-list.component.css']
 })
 export class FacturaListComponent implements OnInit {
-  
-  form :  UntypedFormGroup;
-  param : ParamBase = new ParamBase;
+
+  form: UntypedFormGroup;
+  param: ParamBase = new ParamBase;
   //Paginacion
   pageSize = 14; // Número de elementos por página
-  currentPage = 1; 
+  currentPage = 1;
   totalItems = 0;
   dataSource: MatTableDataSource<Factura>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['Fecha', 'Tipo', 'Numero','Cliente','Total','Edit','Print','Delete'];
-  totalItem: number;  
-  total:number;
-    
-  constructor(private service: FacturaService, 
-    private router: Router,private excelService: ExcelService) {
-      this.createForm();
-     }
+  displayedColumns = ['Fecha', 'Tipo', 'Numero', 'Cliente', 'Total', 'Edit', 'Print', 'Delete'];
+  totalItem: number;
+  total: number;
 
-  ngOnInit(): void
-    {
-      this.onSubmit();
-      this.calcular();
-    }
-    onSubmit():void
-    {
-        this.param =   this.form.value;    
-        this.service.listView(this.param.Fecha,this.param.FechaHasta)
-        .subscribe(res=>{this.dataSource = new MatTableDataSource(res);this.configTable();this.calcular();})  
-    }
-    createForm():void
-  {
-      this.form = new UntypedFormGroup({
-      Fecha: new UntypedFormControl(this.param.Fecha,Validators.required),
-      FechaHasta: new UntypedFormControl(this.param.FechaHasta,Validators.required)});
+  constructor(private service: FacturaService,
+    private router: Router, private excelService: ExcelService) {
+    this.createForm();
+  }
+
+  ngOnInit(): void {
+    this.onSubmit();
+    this.calcular();
+  }
+  onSubmit(): void {
+    this.param = this.form.value;
+    this.service.listView(this.param.Fecha, this.param.FechaHasta)
+      .subscribe(res => { this.dataSource = new MatTableDataSource(res); this.configTable(); this.calcular(); })
+  }
+  createForm(): void {
+    this.form = new UntypedFormGroup({
+      Fecha: new UntypedFormControl(this.param.Fecha, Validators.required),
+      FechaHasta: new UntypedFormControl(this.param.FechaHasta, Validators.required)
+    });
   }
   configTable() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  findByName(name): void {       
+  findByName(name): void {
     this.dataSource.filter = name.trim().toLowerCase();
-    this.calcular();    
+    this.calcular();
   }
-  
-  calcular():void
-{
-  this.totalItems = 0;
-  this.total = 0;   
-  this.totalItems = this.dataSource.filteredData.reduce((total, item) => total + 1, 0);
-  this.dataSource.filteredData.forEach(item => {
-    if (item.Tipo == "1" || item.Tipo=="3") {
-      // Sumar si el tipo es "1"
-      this.total += item.Total;
-    } else {
-      // Restar si el tipo no es "1"
-      this.total -= item.Total;
-    }
-  });
-}
+
+  calcular(): void {
+    this.totalItems = 0;
+    this.total = 0;
+    this.totalItems = this.dataSource.filteredData.reduce((total, item) => total + 1, 0);
+    this.dataSource.filteredData.forEach(item => {
+      if (item.Tipo == "1" || item.Tipo == "3") {
+        // Sumar si el tipo es "1"
+        this.total += item.Total;
+      } else {
+        // Restar si el tipo no es "1"
+        this.total -= item.Total;
+      }
+    });
+  }
 
 
-  addNew(): void
-    {       
-      this.router.navigate(['ventas/factura/add']);
-    }
-    exportToExcel() {
-      this.excelService.exportAsExcelFile(this.dataSource.filteredData, 'factura');
-    }
-  edit(id:string)
-    {
+  addNew(): void {
+    this.router.navigate(['ventas/factura/add']);
+  }
+  exportToExcel() {
+    this.excelService.exportAsExcelFile(this.dataSource.filteredData, 'factura');
+  }
+  edit(id: string) {
 
-    }
-  
-  getTipoFactura(entity:Factura):string
-  {
+  }
+
+  getTipoFactura(entity: Factura): string {
     return this.service.TipoFactura(entity);
-  }  
-  print(id:string)
-  {
+  }
+  print(id: string) {
     this.service.print(id).subscribe((resultBlob: Blob) => {
       var downloadURL = URL.createObjectURL(resultBlob);
-      window.open(downloadURL);});
-  }  
-  
-  delete(entity){
-      if (confirm("Seguro quiere eliminar  " + entity.nombre + "?")) {
-        var index = this.dataSource.filteredData.indexOf(entity);
-        this.dataSource.filteredData.splice(index, 1);    
-        this.service.delete(entity.Id)
-          .subscribe(null,
-            err => {
-              alert("El item no se puede eliminar.");
-              // Revert the view back to its original state
-              this.dataSource.filteredData.splice(index, 0, entity);
-            });
-      }
+      window.open(downloadURL);
+    });
+  }
+
+  delete(entity) {
+    if (confirm("Seguro quiere eliminar  " + entity.nombre + "?")) {
+      var index = this.dataSource.filteredData.indexOf(entity);
+      this.dataSource.filteredData.splice(index, 1);
+      this.service.delete(entity.Id)
+        .subscribe(null,
+          err => {
+            alert("El item no se puede eliminar.");
+            // Revert the view back to its original state
+            this.dataSource.filteredData.splice(index, 0, entity);
+          });
     }
+  }
 
 }

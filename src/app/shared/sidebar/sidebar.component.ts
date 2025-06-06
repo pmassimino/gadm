@@ -35,7 +35,9 @@ Routes: [{ path: '/almacen/articulo',     title: 'Articulos',    icon: 'nc-diamo
 {title: 'Comun', icon: '',
 Routes: [{ path: '/comun/sujeto',     title: 'Sujeto',    icon: 'nc-diamond',  class: '' }]},
 {title: 'Ventas', icon: '',
-Routes: [{ path: '/ventas/factura/list',     title: 'Facturas',    icon: 'nc-diamond',  class: '' }]},
+Routes: [{ path: '/ventas/factura/list',     title: 'Facturas',    icon: 'nc-diamond',  class: '' },
+  { path: '/ventas/pedidos',     title: 'Pedidos',    icon: 'nc-diamond',  class: '' }
+]},
 {title: 'Contabilidad', icon: '',
 Routes: [{ path: '/contable/mayor/list',     title: 'Mayor',    icon: 'nc-diamond',  class: '' },
   { path: '/contable/mayor/balance',     title: 'Balance Mayor',    icon: 'nc-diamond',  class: '' },

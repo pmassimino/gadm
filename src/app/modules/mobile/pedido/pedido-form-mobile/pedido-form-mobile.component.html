@@ -1,4 +1,5 @@
 <app-layout-mobile>
+  <div [hidden]="mode!='new'">  
    <div class="pedido-container">
   <!-- Cabecera -->
   <header class="pedido-header">
@@ -57,16 +58,20 @@
           <input type="number" id="cantidad" min="1" value="1" 
                  class="input-number" [(ngModel)]="cantidad">
         </div>
+        <div class="input-group">
+          <label for="porBonificacion">%Bonificacion</label>
+          <input type="number" id="porBonificacion" min="0" value="0" 
+                 class="input-number" [(ngModel)]="porBonificacion">
+        </div>
         <button class="btn-agregar" (click)="agregarProducto()">Agregar</button>
       </div>
     </div>
-
     <!-- Lista de productos -->
-    <div class="lista-productos">
+    <div class="lista-productos scrollable-content">
       <div class="producto-item" *ngFor="let item of itemsPedido; let i = index">
         <div class="producto-info">
-          <h3>{{item.Nombre}}</h3>
-          <p>{{item.precio | currency}} x {{item.cantidad}}</p>
+          <h3>{{item.Concepto}}</h3>
+          <p>{{(item.Total + item.Iva)/item.Cantidad | currency}} x {{item.Cantidad}} {{item.PorBonificacion > 0 ? 'Bonificacion ' + item.PorBonificacion + '%' : ''}}</p>
         </div>
         <div class="producto-subtotal">
           <span>{{item.PrecioVentaFinal * item.Cantidad | currency}}</span>
@@ -89,12 +94,16 @@
       <span>{{subtotal | currency}}</span>
     </div>
     <div class="total-item">
-      <span>Impuestos ({{porcentajeImpuesto}}%)</span>
+      <span>Impuestos</span>
       <span>{{impuestos | currency}}</span>
+    </div>
+    <div class="total-item">
+      <span>Items</span>
+      <span>{{totalItems | number}}</span>
     </div>
     <div class="total-item total-final">
       <span>Total</span>
-      <span>{{total | currency}}</span>
+      <span>{{total | currency}} </span>      
     </div>
   </section>
 
@@ -113,4 +122,12 @@
     <button class="btn btn-primario" (click)="guardarPedido()">Guardar Pedido</button>
   </footer>
 </div>
+</div>
+<div [hidden]="mode!='showActions'">  
+  <app-pedido-acciones-mobile 
+  [pedidoId]="idPedido" [pedido]="pedido" 
+  (onNuevoPedido)="resetearFormulario()">
+</app-pedido-acciones-mobile>
+</div>
+
 </app-layout-mobile>

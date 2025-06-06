@@ -48,7 +48,9 @@ export class SujetoListComponent implements OnInit {
 
   loadData(): void {
     this.entityService.findAll().subscribe({
-      next: res => this.dataSource = new MatTableDataSource(res),
+      next: res => {
+        this.dataSource = new MatTableDataSource(res);
+        this.configTable();},
       error: err => console.error('Error al cargar empresas', err)
     });
   }
@@ -57,6 +59,10 @@ export class SujetoListComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+  configTable() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   delete(entity: Sujeto) {

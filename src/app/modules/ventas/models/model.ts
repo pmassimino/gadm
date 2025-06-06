@@ -37,7 +37,7 @@ export class Factura {
     Tributos: DetalleTributos[] = [];
     MedioPago: MedioPago[] = [];
     ComprobanteAsociado: ComprobanteAsociado[] = [];
-    Pedidos: Pedido[] = [];
+    Pedidos: FacturaPedido[] = [];
     Sujeto: Sujeto;
 }
 
