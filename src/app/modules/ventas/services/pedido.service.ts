@@ -1,10 +1,11 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { CrudService } from '../../../core/services/crud.service';
-import { Pedido } from '../models/model';
+import { Pedido, UpdateEstadoDto } from '../models/model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ConfigService } from '../../../core/services/config.service';
 import { Observable } from 'rxjs';
 import { NumeradorDocumento } from '../../comun/models/model';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,10 @@ export class PedidoService extends CrudService<Pedido,string> {
   select(data: Pedido[]) {
    this.selectEvent.emit(data);
   }
+  updateEstado(id: string, entity: UpdateEstadoDto): Observable<Pedido> {
+      return this.http.post<Pedido>(`${this.base}${id}/estado`, entity, {}).pipe(
+        catchError(this.handleError)
+      );
+    }
 
 }

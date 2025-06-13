@@ -1,42 +1,61 @@
+<app-layout-mobile>
 <div class="mobile-dashboard">
-    <!-- Header -->
-    <header class="dashboard-header">
-      <h1>{{empresa.NombreComercial}}</h1>
-      <button mat-icon-button>
-        <mat-icon>notifications</mat-icon>
-      </button>
-    </header>
-  
-    <!-- Cards destacadas -->
+  <!-- Header con búsqueda y notificaciones -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <div class="company-info">
+        <h1 class="company-name">{{empresa.NombreComercial}}</h1>
+        <p class="company-status" *ngIf="empresa">
+          <mat-icon class="status-icon">circle</mat-icon>          
+        </p>
+      </div>
+      <div class="header-actions">
+        <button mat-icon-button class="search-btn">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button class="notification-btn">
+          <mat-icon>notifications</mat-icon>
+          <span class="notification-badge" >            
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cards destacadas con mejor diseño -->
+  <div class="featured-cards-container">
     <div class="featured-cards">
       <div *ngFor="let card of featuredCards" class="card" [class.trend-up]="card.trend === 'up'" 
            [class.trend-down]="card.trend === 'down'">
-        <div class="card-icon">
-          <mat-icon>{{card.icon}}</mat-icon>
+        <div class="card-icon" [style.backgroundColor]="card.color + '20'">
+          <mat-icon [style.color]="card.color">{{card.icon}}</mat-icon>
         </div>
         <div class="card-content">
-          <h3>{{card.title}}</h3>
-          <p class="value">{{card.value}}</p>
-          <p *ngIf="card.change" class="trend">
-            <mat-icon>{{card.trend === 'up' ? 'trending_up' : 'trending_down'}}</mat-icon>
-            {{card.change}}
+          <h3 class="card-title">{{card.title}}</h3>
+          <p class="card-value">{{card.value}}</p>
+          <p *ngIf="card.change" class="card-trend">
+            <mat-icon class="trend-icon">{{card.trend === 'up' ? 'trending_up' : 'trending_down'}}</mat-icon>
+            <span class="trend-value">{{card.change}}</span>
           </p>
         </div>
       </div>
     </div>
-  
-    <!-- Menú de iconos -->
-    <div class="icon-grid">
-        <a *ngFor="let item of menuItems" 
-        [routerLink]="item.route"
-        class="icon-item"
-        [style.backgroundColor]="item.color + '20'"
-        [style.borderColor]="item.color"
-        matTooltip="{{item.title}}"
-        matTooltipPosition="below">
-       <mat-icon [style.color]="item.color">{{item.icon}}</mat-icon>
-       <span>{{item.title}}</span>
-     </a>  <!-- Asegúrate que esta etiqueta esté cerrada -->
-    </div> 
-    
   </div>
+
+  <!-- Menú de iconos mejorado -->
+  <div class="icon-menu-container">
+    <h2 class="section-title">Acciones rápidas</h2>
+    <div class="icon-grid">
+      <a *ngFor="let item of menuItems" 
+         [routerLink]="item.route"
+         class="icon-item"
+         [style.--item-color]="item.color">
+        <div class="icon-wrapper">
+          <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
+        </div>
+        <span class="menu-item-title">{{item.title}}</span>
+      </a>
+    </div> 
+  </div>
+</div>
+</app-layout-mobile>

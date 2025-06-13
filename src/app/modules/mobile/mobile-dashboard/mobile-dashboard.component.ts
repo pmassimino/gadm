@@ -26,7 +26,7 @@ export class MobileDashboardComponent implements OnInit {
     { 
       title: 'Ventas', 
       icon: 'shopping_cart', 
-      route: '/sales',
+      route: '/mobile/pedido',
       color: '#34A853' // Verde
     },
     { 
@@ -36,9 +36,9 @@ export class MobileDashboardComponent implements OnInit {
       color: '#EA4335' // Rojo
     },
     { 
-      title: 'Reportes', 
+      title: 'Pedidos', 
       icon: 'assessment', 
-      route: '/reports',
+      route: '/mobile/pedidos',
       color: '#FBBC05' // Amarillo
     },
     { 

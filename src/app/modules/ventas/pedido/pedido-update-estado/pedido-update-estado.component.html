@@ -1,0 +1,31 @@
+<h3>Cambiar Estado Pedido</h3>
+<div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+            <div class="alert alert-warning alert-dismissible fade show" *ngFor="let error of errors" role="alert">
+                {{error.mensaje}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="name">Estado</label>
+                <select class="form-control" formControlName="Estado" name="Estado">
+                    <option *ngFor="let item of estadosDisponibles" [value]="item" >{{item}} </option>
+                </select>
+            </div>
+        </div>
+        <!-- Comentario -->
+        <div class="form-group row">
+            <div class="col-sm-12 col-md-6">
+                <label for="Id">Comentario</label>
+                <input type="text" class="form-control" id="Comentario" formControlName="Comentario" name="Comentario">
+            </div>
+        </div>
+        <!-- Botones -->
+        <div class="mt-2">
+            <button type="submit" [disabled]="!isValid()" class="btn btn-primary">Aceptar</button>
+            <button type="button" class="btn btn-secondary ms-1" (click)="onClose()">Cancelar</button>
+        </div>
+    </form>
+</div>

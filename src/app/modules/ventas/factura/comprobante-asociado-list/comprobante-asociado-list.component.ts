@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comprobante-asociado-list',
+  standalone:false,
   templateUrl: './comprobante-asociado-list.component.html',
   styleUrls: ['./comprobante-asociado-list.component.css']
 })

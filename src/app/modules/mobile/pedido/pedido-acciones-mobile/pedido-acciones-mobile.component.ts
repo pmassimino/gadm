@@ -9,46 +9,45 @@ import { PedidoService } from '../../../ventas/services/pedido.service';
   styleUrls: ['./pedido-acciones-mobile.component.css']
 })
 export class PedidoAccionesMobileComponent {
-  @Input() pedido: Pedido | null = null;
-  @Input() pedidoId: string | null = null;
-  @Output() onNuevoPedido = new EventEmitter<void>();
-  @Output() onListarPedidos = new EventEmitter<void>();
-  
+  @Input() entity: Pedido | null = null;
+  @Output() onAddNew = new EventEmitter<void>();
+  @Output() onList = new EventEmitter<void>();
+  @Output() onClose = new EventEmitter<void>();
+  @Output() onChangeState = new EventEmitter<{ data: Pedido }>();
   mostrarOpciones = false;
   compartiendo = false;
 
   constructor(
     private router: Router,
-    private pedidoService: PedidoService
-  ) {}
+    private entityService: PedidoService
+  ) { }
 
   toggleOpciones() {
     this.mostrarOpciones = !this.mostrarOpciones;
   }
 
   imprimir() {
-    const id = this.pedidoId || this.pedido?.Id;
+    const id = this.entity?.Id;
     if (!id) return;
-    
-    this.pedidoService.print(id).subscribe((resultBlob: Blob) => {
+    this.entityService.print(id).subscribe((resultBlob: Blob) => {
       const downloadURL = URL.createObjectURL(resultBlob);
       window.open(downloadURL);
     });
   }
 
   async compartir() {
-    const id = this.pedidoId || this.pedido?.Id;
+    const id = this.entity?.Id;
     if (!id) return;
 
     this.compartiendo = true;
-    
+
     try {
-      const blob = await this.pedidoService.print(id).toPromise();
-      
+      const blob = await this.entityService.print(id).toPromise();
+
       if (navigator.share) {
         // Para dispositivos móviles con Web Share API
         const file = new File([blob], `pedido_${id}.pdf`, { type: 'application/pdf' });
-        
+
         await navigator.share({
           title: `Pedido ${id}`,
           text: `Compartiendo el pedido ${id}`,
@@ -73,13 +72,18 @@ export class PedidoAccionesMobileComponent {
     }
   }
 
-  nuevoPedido() {
-    this.onNuevoPedido.emit();
-    this.router.navigate(['/pedidos/nuevo']);
+  addNew() {
+    this.onAddNew.emit();
   }
 
-  listarPedidos() {
-    this.onListarPedidos.emit();
-    this.router.navigate(['/pedidos']);
+  list() {
+    this.onList.emit();
   }
+  close(): void {
+    this.onClose.emit();
+  }
+  changeState() {
+    this.onChangeState.emit({ data: this.entity });
+  }
+
 }

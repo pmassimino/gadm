@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, TemplateRef } from '@an
 
 @Component({
   selector: 'app-toolbar-form',
+  standalone:false,
   templateUrl: './toolbar-form.component.html',
   styleUrls: ['./toolbar-form.component.css']
 })

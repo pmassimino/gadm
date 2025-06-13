@@ -10,6 +10,7 @@ import { EmpresaService } from '../../modules/global/services/empresa.service';
 
 @Component({
   selector: 'app-navbar',
+  standalone:false,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

@@ -23,19 +23,24 @@ import { StockListLayoutMobileComponent } from './stock/stock-list-layout-mobile
 import { ArticuloListLayoutMobileComponent } from './articulo/articulo-list-layout-mobile/articulo-list-layout-mobile.component';
 import { PedidoFormMobileComponent } from './pedido/pedido-form-mobile/pedido-form-mobile.component';
 import { PedidoAccionesMobileComponent } from './pedido/pedido-acciones-mobile/pedido-acciones-mobile.component';
+import { PedidoListComponent } from '../ventas/pedido/pedido-list/pedido-list.component';
+import { PedidoListMobileComponent } from './pedido/pedido-list/pedido-list-mobile.component';
+import { VentasModule } from '../ventas/ventas.module';
 
 
 @NgModule({
-  declarations: [MobileDashboardComponent,ArticuloListLayoutMobileComponent,
-    StockListLayoutMobileComponent,SujetoListLayoutMobileComponent,PedidoFormMobileComponent,PedidoAccionesMobileComponent],
+  declarations: [MobileDashboardComponent, ArticuloListLayoutMobileComponent,
+    StockListLayoutMobileComponent, SujetoListLayoutMobileComponent, PedidoFormMobileComponent, PedidoAccionesMobileComponent,
+    PedidoListMobileComponent],
   imports: [
     CommonModule,
-    MobileRoutingModule, 
+    MobileRoutingModule,
     CommonModule,
     ComunModule,
     AlmacenModule,
+    VentasModule,
     SharedModule,
-    FormsModule,    
+    FormsModule,
     ReactiveFormsModule,
     MatIconModule,
     MatSelectModule,

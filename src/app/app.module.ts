@@ -3,7 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './core/services/auth.service';
 import { AuthGuard } from './core/services/auth.guard';
-import { ConfigService} from './core/services/config.service';
+import { ConfigService } from './core/services/config.service';
 // Interceptors
 import { AuthInterceptorService } from './core/services/auth-interceptor.service';
 import { LoginComponent } from './modules/login/login.component';
@@ -14,25 +14,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouteReuseStrategy } from '@angular/router';
 import { CacheRouteReuseStrategy } from './core/services/cache-route-reuse.strategy';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 export function initializeApp(appConfig: ConfigService) {
-  return () => appConfig.load();
+    return () => appConfig.load();
 }
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent, LoginComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], imports: [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
@@ -43,15 +43,16 @@ export function initializeApp(appConfig: ConfigService) {
         MatSelectModule,
         MatInputModule,
         MatDialogModule,
-        MatSlideToggleModule,
-        MatTooltipModule],       
-        providers: [AuthService,
+        MatSlideToggleModule],
+    providers: [AuthService,
         AuthGuard,
         ExcelService,
         CoreService,
-        ConfigService, { provide: APP_INITIALIZER,
+        ConfigService, {
+            provide: APP_INITIALIZER,
             useFactory: initializeApp,
-            deps: [ConfigService], multi: true },
+            deps: [ConfigService], multi: true
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptorService,
@@ -60,5 +61,6 @@ export function initializeApp(appConfig: ConfigService) {
         {
             provide: RouteReuseStrategy,
             useClass: CacheRouteReuseStrategy
-        }, provideHttpClient(withInterceptorsFromDi())] })
+        }, provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }

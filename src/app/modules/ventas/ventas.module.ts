@@ -25,6 +25,7 @@ import { PuntoEmisionSelectComponent } from './puntoemision/punto-emision-select
 import { PuntoEmisionConfigListComponent } from './configfactura/punto-emision-config-list/punto-emision-config-list.component';
 import { VentasSettingListComponent } from './setting/ventas-setting-list/ventas-setting-list.component';
 import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component';
+import { PedidoUpdateEstadoComponent } from './pedido/pedido-update-estado/pedido-update-estado.component';
 
 
 
@@ -33,7 +34,7 @@ import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component'
         FacturaAFIPComponent, FacturaSelectComponent, ComprobanteAsociadoListComponent,
         PuntoEmisionListComponent, PuntoEmisionFormComponent, ConfigFacturaListComponent,
         ConfigFacturaFormComponent, PuntoEmisionSelectComponent, PuntoEmisionConfigListComponent,
-        VentasSettingListComponent,PedidoListComponent],
+        VentasSettingListComponent,PedidoListComponent,PedidoUpdateEstadoComponent],
     imports: [
         CommonModule, VentasRoutingModule, SharedModule, FormsModule,
         ReactiveFormsModule,
@@ -50,6 +51,7 @@ import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component'
         MatTableModule,
         MatTabsModule,
         MatCardModule
-    ]
+    ],
+    exports:[PedidoUpdateEstadoComponent]
 })
 export class VentasModule { }

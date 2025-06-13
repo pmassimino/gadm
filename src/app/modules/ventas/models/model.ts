@@ -199,6 +199,11 @@ export class Pedido {
     Estados: EstadoPedido[];
     Sujeto: Sujeto;
 }
+export class UpdateEstadoDto {
+    Estado: string;
+    Comentario: string;    
+}
+
 
 export class DetallePedido {
     Id: string;

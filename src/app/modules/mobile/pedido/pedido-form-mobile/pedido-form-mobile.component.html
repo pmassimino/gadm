@@ -10,14 +10,7 @@
   </header>
 
   <!-- Sección de cliente -->
-  <section class="seccion-cliente">
-    <div class="seccion-titulo">
-      <h2>Cliente</h2>
-      <button class="btn-buscar" aria-label="Buscar cliente">
-        <i class="material-icons">search</i>
-      </button>
-    </div>
-    
+  <section class="seccion-cliente">    
     <div class="input-group">
       <label for="cliente">Seleccionar cliente</label>
       <select id="cliente" class="input-select" (change)="seleccionarCliente($event)">
@@ -124,9 +117,7 @@
 </div>
 </div>
 <div [hidden]="mode!='showActions'">  
-  <app-pedido-acciones-mobile 
-  [pedidoId]="idPedido" [pedido]="pedido" 
-  (onNuevoPedido)="resetearFormulario()">
+  <app-pedido-acciones-mobile [entity]="pedido"  (onAddNew)="resetearFormulario()" (onList)="list()" >
 </app-pedido-acciones-mobile>
 </div>
 

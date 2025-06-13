@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, TemplateRef } from '@an
 
 @Component({
   selector: 'app-toolbar',
+  standalone:false,
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })

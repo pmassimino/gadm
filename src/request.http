@@ -1,0 +1,67 @@
+@urlBase =  https://localhost:44313
+@idEmpresa=bdd05dab-3ebb-44e5-ba5d-1f413506dbb1
+### Solicitud de autenticación
+# @name login
+POST {{urlBase}}/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "activasol"
+}
+@token = {{login.response.body.token}}
+
+### Generar mov de stock
+GET {{urlBase}}/api/almacen/stock/UpdateFromMovStock HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Consulta empresas
+GET {{urlBase}}/api/global/empresa HTTP/1.1
+Authorization: Bearer {{token}}
+### Consulta Stock mov de stock
+GET {{urlBase}}/api/almacen/stock HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Ajustar stock
+PUT {{urlBase}}/api/almacen/stock/ajustar HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "Stock":
+    {
+    "Id": 1,
+    "IdArticulo": "000001",
+    "IdDeposito": "001",
+    "IdLote": 0,
+    "IdSerie": 0,
+    "Cantidad": 0.0,   },
+    "Fecha":"2025-05-04",
+    "Concepto":"Ajuste Inventario",
+    "Cantidad":10
+  }
+
+### Consulta MovStock   
+GET {{urlBase}}/api/almacen/movstock HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Consulta Pedidos   
+GET {{urlBase}}/api/ventas/pedido HTTP/1.1
+Authorization: Bearer {{token}}
+
+@idPedido = 8ceda97b-c967-4b80-9b29-b53744033dbc
+### Consulta Pedidos   
+GET {{urlBase}}/api/ventas/pedido/{{idPedido}} HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+### Consulta Pedidos   
+post {{urlBase}}/api/ventas/pedido/{{idPedido}}/estado HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+IdEmpresa: {{idEmpresa}}
+
+{
+  "Estado" : "CANCELADO",
+  "Comentario" : "Se Cancela"
+}

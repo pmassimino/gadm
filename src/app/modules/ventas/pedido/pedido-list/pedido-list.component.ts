@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { CoreService } from '../../../../core/services/core.service';
 
 @Component({
   selector: 'app-pedido-list',
@@ -26,7 +27,8 @@ export class PedidoListComponent implements OnInit {
   constructor(
     private entityService: PedidoService,
     private excelService: ExcelService,
-    private router: Router
+    private router: Router,
+    private coreService:CoreService
   ) { }
 
   ngOnInit(): void {
@@ -117,14 +119,14 @@ export class PedidoListComponent implements OnInit {
 crearFacturaDesdePedido(pedido: Pedido): Factura {
   const factura = new Factura();  
   // Copiar datos del cliente
-  factura.Id =  crypto.randomUUID();
+  factura.Id =  this.coreService.generateUUID();
   factura.IdEmpresa = "001";
   factura.IdSeccion = "001";
   factura.IdSucursal =  "001",
   factura.IdArea = "001";   
   factura.IdMoneda = "PES";
   factura.CotizacionMoneda =  1;
-  factura.IdTransaccion =  crypto.randomUUID();
+  factura.IdTransaccion =  this.coreService.generateUUID();
   factura.IdPuntoEmision =  "00001";
   factura.Letra =  "B";
   factura.IdCuenta = pedido.IdCuenta;  

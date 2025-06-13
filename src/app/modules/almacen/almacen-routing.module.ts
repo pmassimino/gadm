@@ -8,8 +8,6 @@ import { FamiliaListComponent } from './familia/familia-list/familia-list.compon
 import { FamiliaFormComponent } from './familia/familia-form/familia-form.component';
 import { DepositoListComponent } from './deposito/deposito-list/deposito-list.component';
 import { MarcaListComponent } from './marca/marca-list/marca-list.component';
-import { StockListComponent } from './stock/stock-list/stock-list.component';
-import { ArticuloListComponent } from './articulo/articulo-list/articulo-list.component';
 import { ArticuloListLayoutComponent } from './articulo/articulo-list-layout/articulo-list-layout.component';
 import { StockListLayoutComponent } from './stock/stock-list-layout/stock-list-layout.component';
 

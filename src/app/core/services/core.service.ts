@@ -40,4 +40,30 @@ export class CoreService implements ICoreService {
     }    
     return throwError(error);
   }
+  generateUUID(): string {
+    // Retorna un número hexadecimal aleatorio de 4 dígitos
+    const s4 = (): string => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    // Formato del UUID: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+    return (
+        s4() +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        '4' +
+        s4().substring(1) +
+        '-' +
+        ((Math.floor(Math.random() * 4) + 8).toString(16)) + // 8, 9, a, o b
+        s4().substring(1) +
+        '-' +
+        s4() +
+        s4() +
+        s4()
+    );
+  }
+
 }

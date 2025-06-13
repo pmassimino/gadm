@@ -8,6 +8,8 @@ import { DetallePedido, Pedido } from '../../../ventas/models/model';
 import { CondIvaService } from '../../../global/services/cond-iva.service';
 import { CondIva, CondIvaOperacion } from '../../../global/models/model';
 import { CondIvaOperacionService } from '../../../global/services/cond-iva-operacion.service';
+import { CoreService } from '../../../../core/services/core.service';
+import { Router } from '@angular/router';
 
 
 
@@ -28,8 +30,8 @@ interface ItemPedido {
 export class PedidoFormMobileComponent implements OnInit {
   mode: 'new' | 'showActions' | '' = 'new';
   clientes: Sujeto[] = [];
-  idPedido:string = "";
-  pedido:Pedido=null;
+  idPedido: string = "";
+  pedido: Pedido = null;
   productos: Articulo[] = [];
   // Variables del formulario
   clienteSeleccionado: Sujeto | null = null;
@@ -44,13 +46,14 @@ export class PedidoFormMobileComponent implements OnInit {
 
   // Totales
   subtotal: number = 0;
-  porcentajeImpuesto: number = 0; // 16% de IVA
+  porcentajeImpuesto: number = 0; // 
   impuestos: number = 0;
   total: number = 0;
   totalItems: number = 0;
 
   constructor(private entityService: PedidoService, private sujetoService: SujetoService,
-    private articuloService: ArticuloService, private condIvaService: CondIvaOperacionService) { }
+    private articuloService: ArticuloService, private condIvaService: CondIvaOperacionService,
+    private coreService: CoreService, private router: Router,) { }
 
   ngOnInit(): void {
     this.loadStaticData();
@@ -210,8 +213,10 @@ export class PedidoFormMobileComponent implements OnInit {
     }
 
     // Aquí iría la lógica para guardar el pedido
-    const Id = crypto.randomUUID();
-    const IdTransaccion = crypto.randomUUID();
+
+
+    const Id = this.coreService.generateUUID();
+    const IdTransaccion = this.coreService.generateUUID();
     this.itemsPedido.forEach(element => {
       element.Id = Id;
     });
@@ -252,11 +257,11 @@ export class PedidoFormMobileComponent implements OnInit {
       Estados: []
     };
     this.entityService.add(pedido).
-    subscribe(res => {
-      this.idPedido = res.Id;
-      this.pedido = res;
-      this.mode = "showActions"
-    });
+      subscribe(res => {
+        this.idPedido = res.Id;
+        this.pedido = res;
+        this.mode = "showActions"
+      });
     console.log('Pedido a guardar:', pedido);
     // Resetear formulario
     this.resetearFormulario();
@@ -265,9 +270,15 @@ export class PedidoFormMobileComponent implements OnInit {
   // Resetear formulario
   resetearFormulario(): void {
     this.clienteSeleccionado = null;
+    this.productoSeleccionado = null;
     this.itemsPedido = [];
     this.observaciones = '';
     this.calcularTotales();
     this.mode = "new"
   }
+  list(): void {
+    this.router.navigate(["/mobile/pedidos"])
+  }
+
 }
+

@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-entity-select-dialog',
+  standalone:false,
   templateUrl: './entity-multi-select-dialog.component.html',
   styleUrls: ['./entity-multi-select-dialog.component.css']
 })

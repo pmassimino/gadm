@@ -3,23 +3,21 @@
     <div class="pedido-info">
         <div class="pedido-dato">
             <span class="dato-label">Número:</span>
-            <span class="dato-valor">{{pedido?.Pe.toString().padStart(4
-            ,"0")}}-{{pedido?.Numero.toString().padStart(8 ,"0") }}</span>
+            <span class="dato-valor">{{entity?.Pe.toString().padStart(4
+            ,"0")}}-{{entity?.Numero.toString().padStart(8 ,"0") }}</span>
         </div>
         <div class="pedido-dato">
             <span class="dato-label">Fecha:</span>
-            <span class="dato-valor">{{pedido?.Fecha | date:'dd/MM/yyyy'}}</span>
-        </div>
+            <span class="dato-valor">{{entity?.Fecha | date:'dd/MM/yyyy'}}</span>
+        </div>        
         <div class="pedido-dato">
-            <span class="dato-label">Items:</span>
-            <span class="dato-valor">{{pedido?.Detalle.length}}</span>
+            <span class="dato-label">Cliente:</span>
+            <span class="dato-valor">{{entity?.Sujeto?.Nombre}}</span>
         </div>
         <div class="pedido-dato total">
             <span class="dato-label">Total:</span>
-            <span class="dato-valor">{{pedido?.Total | currency}}</span>
-        </div>
+            <span class="dato-valor">{{entity?.Total | currency}}</span>      </div>
     </div>
-
     <!-- Sección de acciones -->
     <div class="dashboard-grid">
         <a (click)="imprimir()" class="dashboard-card">
@@ -30,13 +28,17 @@
             <i class="material-icons">share</i>
             <span>Compartir</span>            
         </a>
-        <a (click)="nuevoPedido()" class="dashboard-card">
+        <a (click)="addNew()" class="dashboard-card">
             <i class="material-icons">shopping_cart</i>
             <span>Nuevo</span>            
         </a>
-        <a (click)="listarPedidos()" class="dashboard-card">
+        <a (click)="list()" class="dashboard-card">
             <i class="material-icons">list</i>
             <span>Listar</span>            
+        </a>
+        <a (click)="changeState()" class="dashboard-card">
+            <i class="material-icons">autorenew</i>
+            <span>Cambiar Estado</span>            
         </a>
     </div>
 </div>

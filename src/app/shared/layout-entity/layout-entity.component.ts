@@ -5,6 +5,7 @@ import { Empresa } from '../../modules/global/models/model';
 
 @Component({
   selector: 'app-layout-entity',
+  standalone:false,
   templateUrl: './layout-entity.component.html',
   styleUrls: ['./layout-entity.component.css']
 })

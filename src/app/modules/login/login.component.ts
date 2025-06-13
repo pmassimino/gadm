@@ -6,6 +6,7 @@ import { EmpresaService } from '../global/services/empresa.service';
 
 @Component({
   selector: 'app-login',
+  standalone:false,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

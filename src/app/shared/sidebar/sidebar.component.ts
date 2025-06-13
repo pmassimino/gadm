@@ -52,6 +52,7 @@ Routes: [{ path: '/tesoreria/reciboctacte/list',     title: 'Recibo Cta. Cte.', 
 
 @Component({
   selector: 'app-sidebar',
+  standalone:false,
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })

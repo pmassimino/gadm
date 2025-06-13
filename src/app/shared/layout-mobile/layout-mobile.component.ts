@@ -5,6 +5,7 @@ import { Empresa } from '../../modules/global/models/model';
 
 @Component({
   selector: 'app-layout-mobile',
+  standalone:false,
   templateUrl: './layout-mobile.component.html',
   styleUrls: ['./layout-mobile.component.css']
 })
